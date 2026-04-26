@@ -1,0 +1,648 @@
+import React, { useState, useEffect } from 'react';
+import { 
+  Menu, X, Film, ChevronRight, PlayCircle, Award, 
+  Calendar, Mail, MapPin, Phone, ExternalLink, ArrowRight, Star
+} from 'lucide-react';
+
+// --- MOCK DATA ---
+
+const RECENT_WORK = [
+  {
+    id: 1,
+    title: "If Not Us",
+    director: "Patrick Civitelli",
+    year: "Coming 2026",
+    category: "Short Documentary",
+    awards: [] // Added missing awards array
+  },
+  {
+    id: 2,
+    title: "Ascending Beyond Shadows",
+    director: "Patrick Civitelli",
+    year: "2025",
+    category: "Short Documentary",
+    awards: [
+      "Official Selection - Reading Film Fest",
+      "Best Cinematography - Art is Alive Film Festival",
+      "Best Documentary - SCSU Film Fest"
+    ]
+  },
+  {
+    id: 3,
+    title: "Roma WWF Supertar to Teacher",
+    director: "Patrick Civitelli & Ethan Chaplinski",
+    year: "2024",
+    category: "Short Documentary",
+    awards: [
+      "Official Selection - Bridgeport Film Fest",
+      "Best Young Directors Honorable Mention - Reale Film Festival"
+    ]
+  }
+];
+
+const FILMOGRAPHY = [
+  ...RECENT_WORK,
+  {
+    id: 4,
+    title: "Retrospection",
+    director: "Patrick Civitelli",
+    year: "2025",
+    category: "Short Experimental Documentary",
+    awards: []
+  },
+  {
+    id: 5,
+    title: "Paranormal Pursuits",
+    director: "Patrick Civitelli",
+    year: "2025",
+    category: "Short Documentary",
+    awards: [""]
+  },
+  {
+    id: 6,
+    title: "Powdered Lies",
+    director: "Patrick Civitelli",
+    year: "2024",
+    category: "Short Film",
+    awards: []
+  },
+  {
+    id: 7,
+    title: "The Kiler Prank",
+    director: "Patrick Civitelli",
+    year: "2025",
+    category: "Short Film",
+    awards: []
+  }
+];
+
+const APPEARANCES = [
+  {
+    id: 1,
+    event: "Cannes Film Festival",
+    date: "May 14 - 25, 2026",
+    location: "Cannes, France",
+    details: "Premiere of 'The Silent Peak' and panel discussion with director Elena Rostova."
+  },
+  {
+    id: 2,
+    event: "Toronto International Film Festival",
+    date: "September 5 - 15, 2026",
+    location: "Toronto, Canada",
+    details: "Special screening of our upcoming documentary 'Shadows & Light'."
+  },
+  {
+    id: 3,
+    event: "Sundance Film Festival",
+    date: "January 2027",
+    location: "Park City, Utah",
+    details: "Eagle Claw Films retrospective and upcoming slate presentation."
+  }
+];
+
+const PRESS = [
+  {
+    id: 1,
+    publication: "Variety",
+    date: "March 12, 2026",
+    title: "Eagle Claw Films Announces Ambitious New Slate for 2026",
+    excerpt: "The independent powerhouse behind 'Neon Echoes' is gearing up for its biggest year yet, with three feature films currently in post-production..."
+  },
+  {
+    id: 2,
+    publication: "The Hollywood Reporter",
+    date: "January 28, 2026",
+    title: "Review: 'The Silent Peak' is a Visual Masterpiece",
+    excerpt: "Director Elena Rostova, backed by Eagle Claw Films, delivers a breathtaking and emotionally resonant journey that will leave audiences speechless."
+  },
+  {
+    id: 3,
+    publication: "IndieWire",
+    date: "November 15, 2025",
+    title: "How Eagle Claw Films is Changing the Landscape of Indie Cinema",
+    excerpt: "An exclusive interview with the founders of Eagle Claw Films on their commitment to original storytelling and supporting visionary directors."
+  }
+];
+
+// --- COMPONENTS ---
+
+const Navbar = ({ activeTab, setActiveTab }) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 50);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const navItems = ['Home', 'About', 'Filmography', 'Appearances', 'Press', 'Contact'];
+
+  const handleNavClick = (tab) => {
+    setActiveTab(tab);
+    setIsOpen(false);
+    window.scrollTo(0, 0);
+  };
+
+  return (
+    <nav className={`fixed w-full z-50 transition-all duration-300 ${scrolled ? 'bg-slate-950/95 backdrop-blur-md border-b border-slate-800 py-4' : 'bg-gradient-to-b from-slate-950/90 to-transparent py-6'}`}>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between">
+          {/* Logo Area */}
+          <div 
+            className="flex items-center gap-3 cursor-pointer group"
+            onClick={() => handleNavClick('Home')}
+          >
+            {/* Structural Logo Placeholder */}
+            <div className="w-12 h-12 rounded-full border-2 border-amber-500 bg-slate-900 flex flex-col items-center justify-center transform group-hover:scale-105 transition-transform overflow-hidden shadow-lg">
+              <span className="text-[9px] text-slate-400 font-bold uppercase tracking-tighter leading-none text-center">Logo<br/>Here</span>
+            </div>
+            <span className="text-white font-serif font-bold text-xl tracking-wider uppercase">
+              Eagle Claw <span className="text-amber-500">Films</span>
+            </span>
+          </div>
+
+          {/* Desktop Nav */}
+          <div className="hidden md:flex space-x-8">
+            {navItems.map((item) => (
+              <button
+                key={item}
+                onClick={() => handleNavClick(item)}
+                className={`text-sm tracking-widest uppercase transition-colors ${
+                  activeTab === item 
+                    ? 'text-amber-500 font-semibold' 
+                    : 'text-slate-400 hover:text-white'
+                }`}
+              >
+                {item}
+              </button>
+            ))}
+          </div>
+
+          {/* Mobile Menu Button */}
+          <div className="md:hidden">
+            <button 
+              onClick={() => setIsOpen(!isOpen)}
+              className="text-slate-300 hover:text-white"
+            >
+              {isOpen ? <X size={28} /> : <Menu size={28} />}
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* Mobile Nav */}
+      {isOpen && (
+        <div className="md:hidden absolute top-full left-0 w-full bg-slate-950 border-b border-slate-800 shadow-2xl">
+          <div className="px-4 pt-2 pb-6 space-y-2">
+            {navItems.map((item) => (
+              <button
+                key={item}
+                onClick={() => handleNavClick(item)}
+                className={`block w-full text-left px-4 py-3 text-sm tracking-widest uppercase ${
+                  activeTab === item 
+                    ? 'text-amber-500 bg-slate-900/50' 
+                    : 'text-slate-400 hover:text-white hover:bg-slate-900/30'
+                }`}
+              >
+                {item}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+    </nav>
+  );
+};
+
+const Footer = () => (
+  <footer className="bg-slate-950 border-t border-slate-900 py-12 text-center md:text-left">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-6">
+      <div>
+        <div className="flex items-center justify-center md:justify-start gap-3 mb-3">
+          {/* Structural Logo Placeholder */}
+          <div className="w-8 h-8 rounded-full border border-amber-500/50 bg-slate-900 flex flex-col items-center justify-center overflow-hidden">
+            <span className="text-[7px] text-slate-500 font-bold uppercase tracking-tighter leading-none text-center">Logo</span>
+          </div>
+          <span className="text-white font-serif font-bold text-lg tracking-wider uppercase">
+            Eagle Claw Films
+          </span>
+        </div>
+        <p className="text-slate-500 text-sm">© {new Date().getFullYear()} Eagle Claw Films. All rights reserved.</p>
+      </div>
+      <div className="flex gap-6">
+        <a href="#" className="text-slate-400 hover:text-amber-500 transition-colors uppercase text-xs tracking-widest">Instagram</a>
+        <a href="#" className="text-slate-400 hover:text-amber-500 transition-colors uppercase text-xs tracking-widest">Vimeo</a>
+        <a href="#" className="text-slate-400 hover:text-amber-500 transition-colors uppercase text-xs tracking-widest">IMDb</a>
+      </div>
+    </div>
+  </footer>
+);
+
+// --- PAGES ---
+
+const Home = ({ setActiveTab }) => (
+  <div className="animate-in fade-in duration-700">
+    {/* Hero Section */}
+    <div className="relative h-screen min-h-[600px] flex items-center justify-center overflow-hidden bg-slate-900">
+      
+      {/* Structural Hero Placeholder */}
+      <div className="absolute inset-0 flex items-center justify-center opacity-30 select-none">
+        <span className="text-slate-700 text-[8vw] font-serif font-black whitespace-nowrap -rotate-12 tracking-widest">
+          HERO IMAGE PLACEHOLDER
+        </span>
+      </div>
+      
+      {/* Gradient Overlay overlay */}
+      <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/60 to-slate-950/30" />
+      
+      <div className="relative z-10 text-center px-4 max-w-4xl mx-auto mt-20">
+        <h1 className="text-5xl md:text-7xl font-serif text-white font-bold mb-6 tracking-tight drop-shadow-lg">
+          Crafting Cinematic <br/><span className="text-amber-500 italic">Excellence</span>
+        </h1>
+        <p className="text-lg md:text-xl text-slate-300 mb-10 max-w-2xl mx-auto font-light leading-relaxed drop-shadow-md">
+          An independent production company dedicated to visionary storytelling, 
+          uncompromising artistry, and unforgettable experiences.
+        </p>
+        <button 
+          onClick={() => setActiveTab('Filmography')}
+          className="inline-flex items-center gap-2 bg-amber-600 hover:bg-amber-500 text-white px-8 py-4 text-sm tracking-widest uppercase transition-colors duration-300 shadow-xl shadow-amber-900/20"
+        >
+          <PlayCircle size={18} />
+          View Our Work
+        </button>
+      </div>
+    </div>
+
+    {/* Recent Work Section */}
+    <div className="py-24 bg-slate-950">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex justify-between items-end mb-12 border-b border-slate-800 pb-6">
+          <h2 className="text-3xl md:text-4xl font-serif text-white">Recent Work</h2>
+          <button 
+            onClick={() => setActiveTab('Filmography')}
+            className="hidden md:flex items-center gap-2 text-amber-500 hover:text-amber-400 uppercase tracking-widest text-sm transition-colors"
+          >
+            Full Filmography <ArrowRight size={16} />
+          </button>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {RECENT_WORK.map((film) => (
+            <div key={film.id} className="group cursor-pointer">
+              
+              {/* Structural Poster Placeholder */}
+              <div className="relative aspect-[2/3] overflow-hidden mb-6 bg-slate-900 flex flex-col items-center justify-center border border-slate-800 group-hover:border-amber-500/50 transition-all duration-500 shadow-lg">
+                <Film className="w-10 h-10 text-slate-700 mb-3" />
+                <span className="text-slate-500 font-serif text-center px-4 uppercase tracking-widest text-xs">
+                  Poster Placeholder
+                  <br/><br/>
+                  <span className="text-sm font-bold text-slate-400">{film.title}</span>
+                </span>
+
+                {film.awards?.length > 0 && (
+                  <div className="absolute top-4 left-4 bg-amber-500 text-slate-950 text-xs font-bold uppercase tracking-widest px-3 py-1 flex items-center gap-1 z-20 shadow-md">
+                    <Star size={12} fill="currentColor" /> Award Winner
+                  </div>
+                )}
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent opacity-40 group-hover:opacity-0 transition-opacity" />
+              </div>
+
+              <div className="flex justify-between items-start">
+                <div>
+                  <p className="text-amber-500 text-xs uppercase tracking-widest mb-1">{film.category} • {film.year}</p>
+                  <h3 className="text-2xl text-white font-serif group-hover:text-amber-400 transition-colors">{film.title}</h3>
+                  <p className="text-slate-400 text-sm mt-1">Dir. {film.director}</p>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </div>
+);
+
+const About = () => (
+  <div className="pt-32 pb-24 min-h-screen bg-slate-950 animate-in fade-in duration-500">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+        <div>
+          <h1 className="text-4xl md:text-6xl font-serif text-white mb-8 border-l-4 border-amber-500 pl-6">
+            Visionary<br/>Storytelling.
+          </h1>
+          <div className="space-y-6 text-slate-300 font-light leading-relaxed">
+            <p className="text-lg">
+              Founded in 2024, Eagle Claw Films is an independent production company based in CT, 
+              dedicated to producing bold, compelling, and visually stunning motion pictures and documentaries.
+            </p>
+            <p>
+              We believe that cinema has the power to challenge perspectives, evoke profound emotion, 
+              and connect humanity across borders. Our selective slate of projects reflects our commitment 
+              to auteurs and rising talents who possess a unique voice and uncompromising vision.
+            </p>
+            <p>
+              From award-winning festival darlings to critically acclaimed docu-series, our work spans 
+              genres but remains united by a singular focus: excellence in the craft of filmmaking.
+            </p>
+          </div>
+          
+          <div className="mt-12 grid grid-cols-2 gap-8 border-t border-slate-800 pt-8">
+            <div>
+              <p className="text-4xl font-serif text-amber-500 mb-2">12+</p>
+              <p className="text-xs uppercase tracking-widest text-slate-500">Short Films Produced</p>
+            </div>
+            <div>
+              <p className="text-4xl font-serif text-amber-500 mb-2">15+</p>
+              <p className="text-xs uppercase tracking-widest text-slate-500">Festival Selections</p>
+            </div>
+          </div>
+        </div>
+        
+        <div className="relative group cursor-default">
+          <div className="absolute inset-0 bg-amber-500/20 translate-x-4 translate-y-4 transition-transform group-hover:translate-x-2 group-hover:translate-y-2"></div>
+          
+          {/* Structural About Placeholder */}
+          <div className="relative z-10 w-full h-[500px] md:h-[600px] bg-slate-900 flex flex-col items-center justify-center border border-slate-800 transition-all duration-700">
+            <Film className="w-16 h-16 text-slate-700 mb-4" />
+            <span className="text-slate-500 font-serif uppercase tracking-widest text-sm">
+              Behind The Scenes <br/> Image Placeholder
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+);
+
+const Filmography = () => (
+  <div className="pt-32 pb-24 min-h-screen bg-slate-950 animate-in fade-in duration-500">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="mb-16 text-center">
+        <h1 className="text-4xl md:text-5xl font-serif text-white mb-4">Filmography</h1>
+        <div className="w-16 h-1 bg-amber-500 mx-auto"></div>
+      </div>
+
+      <div className="space-y-24">
+        {FILMOGRAPHY.map((film, index) => (
+          <div key={film.id} className={`flex flex-col ${index % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse'} gap-12 items-center group`}>
+            
+            <div className="w-full lg:w-1/2">
+              {/* Structural Scene Placeholder */}
+              <div className="relative aspect-video overflow-hidden border border-slate-800 shadow-2xl bg-slate-900 flex flex-col items-center justify-center group-hover:border-amber-500/40 transition-colors duration-500">
+                <Film className="w-12 h-12 text-slate-700 mb-3" />
+                <span className="text-slate-500 font-serif uppercase tracking-widest text-xs text-center px-4">
+                  Scene Placeholder<br/><br/>
+                  <span className="text-slate-400 text-sm font-bold">{film.title}</span>
+                </span>
+              </div>
+            </div>
+            
+            <div className="w-full lg:w-1/2 space-y-6">
+              <div className="space-y-2">
+                <p className="text-amber-500 text-sm uppercase tracking-widest">{film.category} • {film.year}</p>
+                <h2 className="text-3xl md:text-4xl font-serif text-white">{film.title}</h2>
+              </div>
+              
+              <p className="text-slate-400 leading-relaxed font-light">
+                Directed by <span className="text-white font-medium">{film.director}</span>. <br className="hidden md:block mb-2" />
+                <span className="italic text-slate-500">
+                  [Insert film description/synopsis here. Detail the plot, themes, production notes, or significance of the project to give audiences a brief overview of the film.]
+                </span>
+              </p>
+              
+              {film.awards?.length > 0 && (
+                <div className="flex flex-wrap gap-2">
+                  {film.awards.map((award, i) => (
+                    <span key={i} className="inline-flex items-center gap-1.5 px-3 py-1 bg-slate-900 border border-slate-700 text-xs text-slate-300 rounded-full">
+                      <Award size={12} className="text-amber-500" />
+                      {award}
+                    </span>
+                  ))}
+                </div>
+              )}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+);
+
+const Appearances = () => (
+  <div className="pt-32 pb-24 min-h-screen bg-slate-950 animate-in fade-in duration-500">
+    <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="mb-16">
+        <h1 className="text-4xl md:text-5xl font-serif text-white mb-4">Upcoming Appearances</h1>
+        <p className="text-slate-400 text-lg font-light">Catch the Eagle Claw Films team and our latest projects at these upcoming industry events and festivals.</p>
+        <div className="w-16 h-1 bg-amber-500 mt-8"></div>
+      </div>
+
+      <div className="space-y-8">
+        {APPEARANCES.map((appearance) => (
+          <div key={appearance.id} className="bg-slate-900/50 border border-slate-800 p-8 hover:border-amber-500/50 transition-colors group">
+            <div className="flex flex-col md:flex-row md:items-start justify-between gap-6">
+              <div className="flex-1">
+                <h3 className="text-2xl text-white font-serif mb-2 group-hover:text-amber-400 transition-colors">{appearance.event}</h3>
+                <p className="text-slate-300 font-light leading-relaxed">{appearance.details}</p>
+              </div>
+              
+              <div className="md:w-64 space-y-3 shrink-0 bg-slate-950 p-4 border border-slate-800">
+                <div className="flex items-center gap-3 text-slate-400">
+                  <Calendar size={18} className="text-amber-500" />
+                  <span className="text-sm">{appearance.date}</span>
+                </div>
+                <div className="flex items-center gap-3 text-slate-400">
+                  <MapPin size={18} className="text-amber-500" />
+                  <span className="text-sm">{appearance.location}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+);
+
+const Press = () => (
+  <div className="pt-32 pb-24 min-h-screen bg-slate-950 animate-in fade-in duration-500">
+    <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="mb-16 flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-slate-800 pb-8">
+        <div>
+          <h1 className="text-4xl md:text-5xl font-serif text-white mb-4">Press & News</h1>
+          <p className="text-slate-400 text-lg font-light">Latest updates, reviews, and features about our work.</p>
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {PRESS.map((item) => (
+          <article key={item.id} className="bg-slate-900 border border-slate-800 p-8 flex flex-col h-full hover:-translate-y-1 transition-transform duration-300">
+            <div className="mb-6">
+              <span className="text-amber-500 text-xs font-bold uppercase tracking-widest">{item.publication}</span>
+              <span className="text-slate-500 text-xs ml-4">{item.date}</span>
+            </div>
+            <h3 className="text-xl text-white font-serif mb-4 leading-snug">{item.title}</h3>
+            <p className="text-slate-400 font-light text-sm mb-8 flex-grow">{item.excerpt}</p>
+            <a href="#" className="inline-flex items-center gap-2 text-sm text-white hover:text-amber-500 uppercase tracking-widest transition-colors mt-auto">
+              Read Article <ExternalLink size={14} />
+            </a>
+          </article>
+        ))}
+      </div>
+    </div>
+  </div>
+);
+
+const Contact = () => {
+  const [status, setStatus] = useState('');
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setStatus('Message sent successfully. Our team will be in touch shortly.');
+    e.target.reset();
+    setTimeout(() => setStatus(''), 5000);
+  };
+
+  return (
+    <div className="pt-32 pb-24 min-h-screen bg-slate-950 animate-in fade-in duration-500">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
+          
+          {/* Contact Info */}
+          <div>
+            <h1 className="text-4xl md:text-5xl font-serif text-white mb-6">Get in Touch</h1>
+            <p className="text-slate-400 font-light text-lg mb-12">
+              For production inquiries, press requests, or general information, 
+              please reach out to us using the contact form or directly via the details below.
+            </p>
+
+            <div className="space-y-8">
+              <div className="flex items-start gap-4">
+                <div className="w-12 h-12 bg-slate-900 border border-slate-800 flex items-center justify-center shrink-0">
+                  <MapPin className="text-amber-500" />
+                </div>
+                <div>
+                  <h4 className="text-white uppercase tracking-widest text-sm mb-2 font-semibold">Headquarters</h4>
+                  <p className="text-slate-400 font-light text-sm leading-relaxed">
+                     <br/>
+                    Monroe, CT 06468<br/>
+                    United States
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-4">
+                <div className="w-12 h-12 bg-slate-900 border border-slate-800 flex items-center justify-center shrink-0">
+                  <Mail className="text-amber-500" />
+                </div>
+                <div>
+                  <h4 className="text-white uppercase tracking-widest text-sm mb-2 font-semibold">Email</h4>
+                  <p className="text-slate-400 font-light text-sm mb-1">Inquiries: cinematographybypatrick@gmail.com</p>
+                  <p className="text-slate-400 font-light text-sm">Press: cinematographybypatrick@gmail.com</p>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-4">
+                <div className="w-12 h-12 bg-slate-900 border border-slate-800 flex items-center justify-center shrink-0">
+                  <Phone className="text-amber-500" />
+                </div>
+                <div>
+                  <h4 className="text-white uppercase tracking-widest text-sm mb-2 font-semibold">Phone</h4>
+                  <p className="text-slate-400 font-light text-sm">+1 (203) 997-6084</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Contact Form */}
+          <div className="bg-slate-900 border border-slate-800 p-8 md:p-10">
+            <h3 className="text-2xl text-white font-serif mb-8">Send a Message</h3>
+            <form onSubmit={handleSubmit} className="space-y-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="space-y-2">
+                  <label className="text-xs uppercase tracking-widest text-slate-400">Name</label>
+                  <input 
+                    required
+                    type="text" 
+                    className="w-full bg-slate-950 border border-slate-800 text-white px-4 py-3 focus:outline-none focus:border-amber-500 transition-colors"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <label className="text-xs uppercase tracking-widest text-slate-400">Email</label>
+                  <input 
+                    required
+                    type="email" 
+                    className="w-full bg-slate-950 border border-slate-800 text-white px-4 py-3 focus:outline-none focus:border-amber-500 transition-colors"
+                  />
+                </div>
+              </div>
+              <div className="space-y-2">
+                <label className="text-xs uppercase tracking-widest text-slate-400">Subject</label>
+                <select className="w-full bg-slate-950 border border-slate-800 text-white px-4 py-3 focus:outline-none focus:border-amber-500 transition-colors appearance-none">
+                  <option>General Inquiry</option>
+                  <option>Production Services</option>
+                  <option>Press / Media</option>
+                  <option>Careers</option>
+                </select>
+              </div>
+              <div className="space-y-2">
+                <label className="text-xs uppercase tracking-widest text-slate-400">Message</label>
+                <textarea 
+                  required
+                  rows="5"
+                  className="w-full bg-slate-950 border border-slate-800 text-white px-4 py-3 focus:outline-none focus:border-amber-500 transition-colors resize-none"
+                ></textarea>
+              </div>
+              
+              <button 
+                type="submit"
+                className="w-full bg-amber-600 hover:bg-amber-500 text-white py-4 text-sm uppercase tracking-widest transition-colors font-medium"
+              >
+                Submit Inquiry
+              </button>
+
+              {status && (
+                <div className="p-4 bg-green-900/20 border border-green-900/50 text-green-400 text-sm text-center">
+                  {status}
+                </div>
+              )}
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// --- MAIN APP ---
+
+export default function App() {
+  const [activeTab, setActiveTab] = useState('Home');
+
+  const renderContent = () => {
+    switch (activeTab) {
+      case 'Home': return <Home setActiveTab={setActiveTab} />;
+      case 'About': return <About />;
+      case 'Filmography': return <Filmography />;
+      case 'Appearances': return <Appearances />;
+      case 'Press': return <Press />;
+      case 'Contact': return <Contact />;
+      default: return <Home setActiveTab={setActiveTab} />;
+    }
+  };
+
+  return (
+    <div className="min-h-screen bg-slate-950 text-slate-200 font-sans selection:bg-amber-500 selection:text-slate-950">
+      <Navbar activeTab={activeTab} setActiveTab={setActiveTab} />
+      
+      <main>
+        {renderContent()}
+      </main>
+
+      <Footer />
+    </div>
+  );
+}
