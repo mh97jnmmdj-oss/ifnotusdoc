@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>If Not Us - Documentary</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Kalam:wght@300;400;700&family=Permanent+Marker&display=swap" rel="stylesheet">
+    <style>
+        /* Base Theme Styles */
+        body {
+            /* Lined Paper Background */
+            background-color: #f8f9fa;
+            background-image: 
+                linear-gradient(90deg, transparent 79px, #ff9999 79px, #ff9999 81px, transparent 81px),
+                linear-gradient(#e1e1e1 .1em, transparent .1em);
+            background-size: 100% 2.5rem;
+            font-family: 'Kalam', cursive;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        /* Typography */
+        h1, h2, h3, .marker-font {
+            font-family: 'Permanent Marker', cursive;
+        }
+        
+        .handwritten {
+            font-family: 'Caveat', cursive;
+        }
+
+        /* Sticky Notes */
+        .sticky-note {
+            position: relative;
+            box-shadow: 2px 4px 10px rgba(0,0,0,0.15);
+            padding: 2rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .sticky-note:hover {
+            transform: scale(1.02) rotate(0deg) !important;
+            box-shadow: 4px 8px 15px rgba(0,0,0,0.2);
+            z-index: 10;
+        }
+
+        .sticky-yellow { background: #fefcbf; }
+        .sticky-blue { background: #bee3f8; }
+        .sticky-pink { background: #fed7e2; }
+        .sticky-green { background: #c6f6d5; }
+        .sticky-orange { background: #feebc8; }
+
+        /* Tape & Pins */
+        .tape {
+            width: 100px;
+            height: 30px;
+            background-color: rgba(255, 255, 255, 0.4);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%) rotate(-2deg);
+            z-index: 5;
+        }
+
+        .pin {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: #e53e3e;
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            box-shadow: inset -2px -2px 5px rgba(0,0,0,0.3), 2px 2px 4px rgba(0,0,0,0.3);
+            z-index: 5;
+        }
+
+        /* Polaroid Frames */
+        .polaroid {
+            background: #fff;
+            padding: 10px 10px 20px 10px;
+            box-shadow: 2px 4px 12px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease;
+            position: relative;
+        }
+        
+        .polaroid:hover {
+            transform: scale(1.05) rotate(0deg) !important;
+            z-index: 10;
+        }
+
+        .polaroid img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            filter: sepia(10%) contrast(110%);
+        }
+
+        .polaroid-caption {
+            text-align: center;
+            font-family: 'Caveat', cursive;
+            font-size: 1.5rem;
+            color: #444;
+            margin-top: 15px;
+            min-height: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        /* Custom Form Inputs */
+        .lined-input {
+            background: transparent;
+            border: none;
+            border-bottom: 2px solid #a0aec0;
+            font-family: 'Kalam', cursive;
+            font-size: 1.25rem;
+            width: 100%;
+            padding: 0.5rem 0;
+            margin-bottom: 1rem;
+            outline: none;
+        }
+        
+        .lined-input:focus {
+            border-bottom-color: #e53e3e;
+        }
+
+        /* Rotations */
+        .rotate-1 { transform: rotate(1deg); }
+        .rotate-minus-1 { transform: rotate(-1deg); }
+        .rotate-2 { transform: rotate(2deg); }
+        .rotate-minus-2 { transform: rotate(-2deg); }
+        .rotate-3 { transform: rotate(3deg); }
+        .rotate-minus-3 { transform: rotate(-3deg); }
+    </style>
+</head>
+<body class="antialiased min-h-screen pt-10">
+
+    <!-- Socials & Nav (Top Right) -->
+    <nav class="absolute top-4 right-8 flex space-x-4 z-50">
+        <a href="https://www.instagram.com/ifnotusdoc?igsh=dG16NTNuczhrMjI5&utm_source=qr" target="_blank" class="text-gray-700 hover:text-pink-600 transition-colors" title="Instagram">
+            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+        </a>
+        <a href="https://www.facebook.com/share/18X2TN5dnU/?mibextid=wwXIfr" target="_blank" class="text-gray-700 hover:text-blue-600 transition-colors" title="Facebook">
+            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
+        </a>
+    </nav>
+
+    <!-- Header / Hero Section -->
+    <header class="max-w-5xl mx-auto px-4 py-16 text-center mt-8 relative">
+        <div class="inline-block relative">
+            <div class="tape" style="top: -20px; width: 150px; height: 40px;"></div>
+            <h2 class="text-3xl md:text-4xl text-gray-800 handwritten mb-2 font-bold transform -rotate-1">A Documentary Film</h2>
+            <h1 class="text-6xl md:text-8xl text-blue-600 marker-font tracking-wide transform rotate-1 mb-8" style="text-shadow: 2px 2px 4px rgba(0,0,0,0.1);">
+                If Not Us
+            </h1>
+        </div>
+        <div class="mt-8">
+            <p class="text-4xl md:text-6xl font-bold text-gray-800 marker-font border-b-4 border-red-500 inline-block pb-2">
+                Help lead the change.
+            </p>
+        </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="max-w-6xl mx-auto px-4 pb-24 space-y-24">
+
+        <!-- About the Film (Top Section) -->
+        <section class="mt-12 text-center" id="about">
+            <div class="max-w-3xl mx-auto mb-12 bg-white p-8 box-shadow rotate-minus-1 border border-gray-200" style="box-shadow: 4px 4px 0px rgba(0,0,0,0.1);">
+                <div class="pin"></div>
+                <h3 class="text-3xl font-bold marker-font mb-4 mt-2 text-gray-800">What is "If Not Us"?</h3>
+                <p class="text-xl md:text-2xl leading-relaxed">
+                    "If Not Us" explores the powerful and urgent journey of students rising up to demand a safer future. When tragedy strikes close to home, this generation proves that age is not a barrier to activism.
+                </p>
+            </div>
+        </section>
+
+        <!-- Full Synopsis -->
+        <section id="synopsis" class="px-4">
+            <div class="sticky-note sticky-yellow rotate-minus-1 max-w-4xl mx-auto p-8 md:p-12 border border-yellow-300">
+                <div class="tape" style="width: 120px;"></div>
+                <h3 class="text-4xl marker-font text-gray-800 mb-6 border-b-2 border-gray-400 inline-block">Full Synopsis</h3>
+                <div class="space-y-4 text-xl md:text-2xl leading-relaxed text-gray-800">
+                    <p>
+                        In the wake of unimaginable events, a community of students refuses to become just another statistic. "If Not Us" follows the intimate, behind-the-scenes struggles and triumphs of youth organizers as they balance homework and history-making.
+                    </p>
+                    <p>
+                        Through raw interviews and on-the-ground footage, the film captures the emotional toll and the fierce determination of teenagers thrust into the national spotlight. It is a testament to resilience, showing how a chorus of young voices can shift the cultural paradigm and demand accountability from those in power. 
+                    </p>
+                    <p>
+                        This is not just a story about tragedy; it is a blueprint for hope and a call to action for audiences of all ages. If not them, who? If not now, when?
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Interviews Section -->
+        <section id="interviews" class="px-4">
+            <h3 class="text-4xl marker-font text-center mb-12 text-gray-800">Interviews</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 max-w-4xl mx-auto px-4">
+                <div class="polaroid rotate-2">
+                    <img src="MT.jpeg" alt="Mia Tretta">
+                    <div class="polaroid-caption text-xl leading-tight pb-2">Mia Tretta <br><span class="text-sm">Wounded Gun Violence Survior and Advocate</span></div>
+                </div>
+                <div class="polaroid rotate-minus-2 mt-4 md:mt-0">
+                    <img src="MC.jpeg" alt="Micheal Citarella">
+                    <div class="polaroid-caption text-2xl pt-2">Micheal Citarella<br><span class="text-sm">Student Advocate</span></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Filmmakers Section -->
+        <section id="filmmakers" class="px-4">
+            <h3 class="text-4xl marker-font text-center mb-12 text-gray-800">About the Filmmaker</h3>
+            
+            <div class="flex flex-col lg:flex-row gap-12 items-center lg:items-start">
+                
+                <!-- Director Photo -->
+                <div class="w-full lg:w-5/12 flex justify-center">
+                    <div class="polaroid rotate-minus-2 w-full max-w-[300px]">
+                        <!-- Placeholder for filmmaker photo 1 -->
+                        <img src="About-me.jpg" alt="Filmmaker">
+                        <div class="polaroid-caption text-sm">Behind the lens</div>
+                    </div>
+                </div>
+
+                <!-- Director's Statement -->
+                <div class="w-full lg:w-7/12">
+                    <div class="sticky-note sticky-blue rotate-1 p-8 border border-blue-300">
+                        <div class="pin"></div>
+                        <h4 class="text-3xl marker-font mb-4 text-gray-800">Director's Statement</h4>
+                        <p class="text-xl md:text-2xl leading-relaxed text-gray-800">
+                            "In my lifetime, gun violence has sadly changed the American classroom. I was a third grader in the town over when the terrible shooting at Sandy Hook Elementary School happened. This event became a defining trauma for my generation. For too long, we have been stuck in a dangerous situation where real solutions are delayed, and meaningful change feels forever out of reach. This inaction represents a serious failure to protect the next generation. This film is dedicated to the architects of tomorrow. By centering the perspectives of the youth, those who carry the weight of the future, I aim to amplify student voices that have long been sidelined. My goal is to shift the narrative from mere conversation to the catalyst for real, systemic change.
+We must refuse to accept this violence as normal. The time for indifference is over. Words alone are not enough; we demand immediate and clear action to stop this crisis, and we need it now. This conversation is the essential first step."
+                        </p>
+                        <p class="text-right mt-4 font-bold text-2xl handwritten">- The Director</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Media / YouTube Links -->
+        <section id="media" class="px-4">
+            <div class="text-center mb-8">
+                <div class="tape inline-block relative" style="top: 10px; width: 100px;"></div>
+                <h3 class="text-4xl marker-font text-gray-800 mt-4 relative z-10">Watch & Share</h3>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Video Spot 1 -->
+                <div class="bg-white p-4 pb-12 box-shadow rotate-minus-1 border border-gray-300 relative">
+                    <div class="tape" style="top: -10px; right: -20px; left: auto; transform: rotate(45deg); width: 60px;"></div>
+                    <div class="tape" style="top: -10px; left: -20px; transform: rotate(-45deg); width: 60px;"></div>
+                    <div class="aspect-video bg-gray-200 flex items-center justify-center">
+                        <iframe class="w-full h-full" src="https://www.youtube.com/embed/e5J-Bz18wNY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                    <p class="handwritten text-center text-2xl mt-4 text-gray-600">Darrell's Testimony</p>
+                </div>
+                
+                <!-- Video Spot 2 -->
+                <div class="bg-white p-4 pb-12 box-shadow rotate-1 border border-gray-300 relative mt-4 md:mt-0">
+                    <div class="tape" style="top: -10px; right: -20px; left: auto; transform: rotate(45deg); width: 60px;"></div>
+                    <div class="tape" style="top: -10px; left: -20px; transform: rotate(-45deg); width: 60px;"></div>
+                    <div class="aspect-video bg-gray-200 flex items-center justify-center">
+                        <iframe class="w-full h-full" src="https://www.youtube.com/embed/bpDoh5-6xAk" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                    <p class="handwritten text-center text-2xl mt-4 text-gray-600">Chris's Testimony</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Resource Center -->
+        <section id="resources" class="px-4">
+            <h3 class="text-4xl marker-font text-gray-800 mb-8 border-b-4 border-red-500 inline-block">Resource Center</h3>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+                
+                <a href="https://studentsdemandaction.org/" target="_blank" class="block">
+                    <div class="sticky-note sticky-green rotate-minus-2 h-full cursor-pointer border border-green-300">
+                        <div class="pin" style="background: #3182ce;"></div>
+                        <h4 class="text-2xl font-bold marker-font text-gray-800 mt-2">Students Demand Action</h4>
+                        <p class="text-xl mt-2 text-gray-700">Join the movement of young activists fighting for gun safety.</p>
+                        <p class="text-blue-600 handwritten text-xl mt-4">Visit Site &rarr;</p>
+                    </div>
+                </a>
+
+                <a href="https://www.everytown.org/" target="_blank" class="block">
+                    <div class="sticky-note sticky-orange rotate-1 h-full cursor-pointer border border-orange-300">
+                        <div class="pin" style="background: #dd6b20;"></div>
+                        <h4 class="text-2xl font-bold marker-font text-gray-800 mt-2">Everytown</h4>
+                        <p class="text-xl mt-2 text-gray-700">Learn about common-sense solutions to end gun violence.</p>
+                        <p class="text-blue-600 handwritten text-xl mt-4">Visit Site &rarr;</p>
+                    </div>
+                </a>
+
+                <a href="https://www.sandyhookpromise.org/" target="_blank" class="block">
+                    <div class="sticky-note sticky-pink rotate-2 h-full cursor-pointer border border-pink-300">
+                        <div class="pin" style="background: #d53f8c;"></div>
+                        <h4 class="text-2xl font-bold marker-font text-gray-800 mt-2">Sandy Hook Promise</h4>
+                        <p class="text-xl mt-2 text-gray-700">Protecting children and preventing violence through education.</p>
+                        <p class="text-blue-600 handwritten text-xl mt-4">Visit Site &rarr;</p>
+                    </div>
+                </a>
+
+            </div>
+        </section>
+
+        <!-- Events & Screenings -->
+        <section id="events" class="px-4 mt-16 flex items-center justify-center">
+            <div class="sticky-note sticky-yellow rotate-1 w-full max-w-3xl text-center p-12 border border-yellow-400">
+                <div class="tape" style="width: 120px;"></div>
+                <h3 class="text-5xl marker-font text-red-600 mb-8">Events & Screenings</h3>
+                
+                <!-- Upcoming Events -->
+                <div class="mb-12">
+                    <h4 class="text-3xl marker-font text-gray-800 mb-4 inline-block border-b-2 border-gray-400">Upcoming</h4>
+                    <p class="text-4xl md:text-5xl handwritten font-bold text-gray-800 transform -rotate-1 mt-6">
+                        More events to be announced...
+                    </p>
+                    <p class="text-xl text-gray-600 mt-4 handwritten">Check back soon for updates!</p>
+                </div>
+
+                <!-- Past Events -->
+                <div>
+                    <h4 class="text-3xl marker-font text-gray-800 mb-6 inline-block border-b-2 border-gray-400">Past Events</h4>
+                    <div class="py-8 border-t-2 border-b-2 border-dashed border-gray-400 bg-white/30 rounded-lg">
+                        <div class="transform -rotate-1 space-y-4 opacity-75 hover:opacity-100 transition-opacity">
+                            <p class="text-2xl md:text-3xl marker-font text-blue-600">April 14th at 11 AM</p>
+                            <p class="text-2xl md:text-3xl handwritten font-bold text-gray-800 leading-tight px-4">
+                                SCSU Student Demand Action <br>
+                                <span class="text-red-500 text-xl mx-2">X</span> <br>
+                                If Not Us Documentary Interview Tapings
+                            </p>
+                            <p class="text-xl marker-font text-gray-700 mt-4 inline-flex items-center gap-2 bg-yellow-200 px-3 py-1 rounded shadow-sm border border-yellow-300 transform rotate-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                                SCSU Quad
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer / Contact Form -->
+    <footer class="mt-12 pb-16 relative" id="contact">
+        <!-- Torn paper effect top edge -->
+        <div class="w-full h-8" style="background: url('data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 10\' preserveAspectRatio=\'none\'><path d=\'M0,10 Q5,0 10,10 T20,10 T30,10 T40,10 T50,10 T60,10 T70,10 T80,10 T90,10 T100,10 L100,0 L0,0 Z\' fill=\'%23f8f9fa\'/></svg>'); background-size: 100px 10px;"></div>
+        
+        <div class="bg-[#2d3748] text-white pt-16 pb-12 px-4 shadow-inner">
+            <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12">
+                
+                <!-- Contact Info & Socials -->
+                <div>
+                    <h3 class="text-4xl marker-font mb-6 text-yellow-300">Get in Touch</h3>
+                    <p class="text-2xl handwritten mb-8 text-gray-300">Want to host a screening? Reach out to us!</p>
+                    
+                    <div class="flex space-x-6 mt-8">
+                        <a href="https://www.instagram.com/ifnotusdoc?igsh=dG16NTNuczhrMjI5&utm_source=qr" target="_blank" class="bg-white p-3 rounded-full text-gray-900 hover:bg-pink-500 hover:text-white transition-colors transform hover:scale-110">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+                        </a>
+                        <a href="https://www.facebook.com/share/18X2TN5dnU/?mibextid=wwXIfr" target="_blank" class="bg-white p-3 rounded-full text-gray-900 hover:bg-blue-600 hover:text-white transition-colors transform hover:scale-110">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
+                        </a>
+                        <a href="https://www.youtube.com/@CinematographybyPatrick" target="_blank" class="bg-white p-3 rounded-full text-gray-900 hover:bg-red-600 hover:text-white transition-colors transform hover:scale-110">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33 2.78 2.78 0 0 0 1.94 2C5.12 19.5 12 19.5 12 19.5s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.33 29 29 0 0 0-.46-5.33z"></path><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon></svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Form (Styled like a notepad) -->
+                <div class="bg-[#fefcbf] p-8 rounded text-gray-800 rotate-1 shadow-lg relative border border-yellow-400">
+                    <div class="tape" style="top: -10px; width: 80px;"></div>
+                    <!-- Replace the action URL below with your Formspree endpoint -->
+                    <form action="https://formspree.io/f/YOUR_FORM_ID_HERE" method="POST">
+                        <div class="mb-4">
+                            <input type="text" name="name" id="name" placeholder="Name" required class="lined-input">
+                        </div>
+                        <div class="mb-4">
+                            <input type="email" name="email" id="email" placeholder="Email" required class="lined-input">
+                        </div>
+                        <div class="mb-6">
+                            <textarea name="message" id="message" rows="3" placeholder="Message..." required class="lined-input resize-none"></textarea>
+                        </div>
+                        <button type="submit" class="w-full bg-red-600 text-white marker-font text-2xl py-2 rounded shadow hover:bg-red-700 transition-colors transform hover:-translate-y-1">
+                            Send Message
+                        </button>
+                    </form>
+                </div>
+
+            </div>
+            
+            <div class="text-center mt-16 text-gray-500 font-sans text-sm">
+                &copy; <span id="year"></span> Eagle Claw Films. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Set current year in footer
+        document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
+</body>
+</html>
