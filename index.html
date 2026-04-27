@@ -104,7 +104,6 @@
             transition: transform 0.4s ease, z-index 0s;
         }
         
-        /* Straighten and scale up on hover or when flipped */
         .polaroid-container:hover, .polaroid-container.flipped {
             transform: scale(1.05) rotate(0deg) !important;
             z-index: 20;
@@ -144,7 +143,6 @@
             height: 100%;
             transform: rotateY(180deg);
             z-index: 1;
-            /* Lined index card look for the back */
             background-color: #fdfbf7;
             background-image: linear-gradient(#e1e1e1 .1em, transparent .1em);
             background-size: 100% 1.8rem;
@@ -155,7 +153,6 @@
             overflow-y: auto;
         }
 
-        /* Scrollbar for back if bio is long */
         .polaroid-back::-webkit-scrollbar { width: 4px; }
         .polaroid-back::-webkit-scrollbar-track { background: transparent; }
         .polaroid-back::-webkit-scrollbar-thumb { background: #cbd5e0; border-radius: 4px; }
@@ -177,6 +174,67 @@
             display: flex;
             flex-direction: column;
             justify-content: center;
+        }
+
+        /* -------------------------------------
+           Scroll Animations (Sticky Notes & Polaroids)
+           ------------------------------------- */
+        .animate-on-scroll {
+            opacity: 0;
+            will-change: opacity, transform, scale, translate;
+        }
+
+        .anim-slap {
+            scale: 1.3;
+            translate: 0 -40px;
+            transition: opacity 0.5s ease-out, scale 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275), translate 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .anim-drop {
+            translate: 0 -80px;
+            transition: opacity 0.6s ease-out, translate 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .animate-on-scroll.is-visible {
+            opacity: 1;
+            scale: 1;
+            translate: 0 0;
+        }
+
+        /* -------------------------------------
+           Typewriter (Pencil) Effect
+           ------------------------------------- */
+        .typewriter-cursor {
+            display: inline-block;
+            width: 4px;
+            background-color: #e53e3e;
+            margin-left: 4px;
+            animation: blink 1s step-end infinite;
+            vertical-align: text-bottom;
+            height: 1.1em;
+            transform: rotate(5deg);
+        }
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+        .typewriter-text {
+            opacity: 0;
+        }
+        .typewriter-text.ready {
+            opacity: 1;
+        }
+
+        /* -------------------------------------
+           Paper Airplane Scroll-to-Top Animation
+           ------------------------------------- */
+        .anim-fly-away {
+            animation: flyAway 1.2s ease-in forwards;
+        }
+        @keyframes flyAway {
+            0% { transform: translate(0, 0) scale(1) rotate(0deg); opacity: 1; }
+            30% { transform: translate(20px, 20px) scale(0.9) rotate(15deg); opacity: 1; } /* Pulls back to prep launch */
+            100% { transform: translate(300px, -150vh) scale(0.5) rotate(-30deg); opacity: 0; } /* Shoots into the sky */
         }
 
         /* Custom Form Inputs */
@@ -205,7 +263,18 @@
         .rotate-minus-3 { transform: rotate(-3deg); }
     </style>
 </head>
-<body class="antialiased min-h-screen pt-10">
+<body class="antialiased min-h-screen pt-10 relative">
+
+    <!-- Paper Airplane Scroll-to-Top Doodle -->
+    <div id="backToTop" class="fixed bottom-8 right-8 md:bottom-12 md:right-12 z-[100] cursor-pointer opacity-0 pointer-events-none transition-opacity duration-500" onclick="flyToTop()">
+        <div id="airplaneIcon" class="relative flex flex-col items-center transition-transform hover:-translate-y-2 hover:scale-110">
+            <svg class="w-12 h-12 md:w-16 md:h-16 text-blue-600 drop-shadow-md transform -rotate-45" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="22" y1="2" x2="11" y2="13"></line>
+                <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+            </svg>
+            <p class="handwritten text-gray-800 text-xl font-bold mt-2 transform rotate-[-5deg] whitespace-nowrap">Fly to top!</p>
+        </div>
+    </div>
 
     <nav class="absolute top-4 right-8 flex space-x-4 z-50">
         <a href="https://www.instagram.com/ifnotusdoc?igsh=dG16NTNuczhrMjI5&utm_source=qr" target="_blank" class="text-gray-700 hover:text-pink-600 transition-colors" title="Instagram">
@@ -219,13 +288,13 @@
     <header class="max-w-5xl mx-auto px-4 py-16 text-center mt-8 relative">
         <div class="inline-block relative">
             <div class="tape" style="top: -20px; width: 150px; height: 40px;"></div>
-            <h2 class="text-3xl md:text-4xl text-gray-800 handwritten mb-2 font-bold transform -rotate-1">A Documentary Film</h2>
-            <h1 class="text-6xl md:text-8xl text-blue-600 marker-font tracking-wide transform rotate-1 mb-8" style="text-shadow: 2px 2px 4px rgba(0,0,0,0.1);">
+            <h2 class="text-3xl md:text-4xl text-gray-800 handwritten mb-2 font-bold transform -rotate-1 typewriter-text">A Documentary Film</h2>
+            <h1 class="text-6xl md:text-8xl text-blue-600 marker-font tracking-wide transform rotate-1 mb-8 typewriter-text" style="text-shadow: 2px 2px 4px rgba(0,0,0,0.1);">
                 If Not Us
             </h1>
         </div>
         <div class="mt-8">
-            <p class="text-4xl md:text-6xl font-bold text-gray-800 marker-font border-b-4 border-red-500 inline-block pb-2">
+            <p class="text-4xl md:text-6xl font-bold text-gray-800 marker-font border-b-4 border-red-500 inline-block pb-2 typewriter-text">
                 Help lead the change.
             </p>
         </div>
@@ -234,39 +303,41 @@
     <main class="max-w-6xl mx-auto px-4 pb-24 space-y-24">
 
         <section class="mt-12 text-center" id="about">
-            <div class="max-w-3xl mx-auto mb-12 bg-white p-8 box-shadow rotate-minus-1 border border-gray-200" style="box-shadow: 4px 4px 0px rgba(0,0,0,0.1);">
+            <div class="max-w-3xl mx-auto mb-12 bg-white p-8 box-shadow rotate-minus-1 border border-gray-200 animate-on-scroll anim-slap" style="box-shadow: 4px 4px 0px rgba(0,0,0,0.1);">
                 <div class="pin"></div>
-                <h3 class="text-3xl font-bold marker-font mb-4 mt-2 text-gray-800">What is "If Not Us"?</h3>
-                <p class="text-xl md:text-2xl leading-relaxed">
+                <h3 class="text-3xl font-bold marker-font mb-4 mt-2 text-gray-800 typewriter-text">What is "If Not Us"?</h3>
+                <!-- Typewriter text applied to the paragraph here -->
+                <p class="text-xl md:text-2xl leading-relaxed typewriter-text">
                     If Not Us is a documentary about students fight to end school shootings, highlighting young survivors and activists turning their experiences into powerful action.
                 </p>
             </div>
         </section>
 
         <section id="synopsis" class="px-4">
-            <div class="sticky-note sticky-yellow rotate-minus-1 max-w-4xl mx-auto p-8 md:p-12 border border-yellow-300">
+            <div class="sticky-note sticky-yellow rotate-minus-1 max-w-4xl mx-auto p-8 md:p-12 border border-yellow-300 animate-on-scroll anim-slap">
                 <div class="tape" style="width: 120px;"></div>
-                <h3 class="text-4xl marker-font text-gray-800 mb-6 border-b-2 border-gray-400 inline-block">Full Synopsis</h3>
+                <h3 class="text-4xl marker-font text-gray-800 mb-6 border-b-2 border-gray-400 inline-block typewriter-text">Full Synopsis</h3>
                 <div class="space-y-4 text-xl md:text-2xl leading-relaxed text-gray-800">
-                    <p>
+                    <!-- Typewriter text applied to the paragraphs here -->
+                    <p class="typewriter-text">
                         If Not Us is a compelling documentary centered on the student-led movement to end school shootings. 
                     </p>
-                    <p>
+                    <p class="typewriter-text">
                         Highlighting the voices of those who have experienced these tragedies firsthand—alongside a generation that refuses to accept the status quo—the film explores the powerful intersection of grief and activism.
                     </p>
-                    <p>
+                    <p class="typewriter-text">
                          It offers an inspiring look at how young survivors and passionate advocates are finding their courage, confronting systemic inaction, and bravely answering the call for change.
+                    </p>
                 </div>
             </div>
         </section>
 
         <!-- INTERVIEWS SECTION -->
         <section id="interviews" class="px-4">
-            <h3 class="text-4xl marker-font text-center mb-12 text-gray-800">Interviews</h3>
+            <h3 class="text-4xl marker-font text-center mb-12 text-gray-800 typewriter-text">Interviews</h3>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 max-w-4xl mx-auto px-4">
                 
-                <!-- Mia Tretta Polaroid Flip -->
-                <div class="polaroid-container rotate-2" onclick="this.classList.toggle('flipped')">
+                <div class="polaroid-container rotate-2 animate-on-scroll anim-drop" style="transition-delay: 0.1s;" onclick="this.classList.toggle('flipped')">
                     <div class="polaroid-inner">
                         <div class="polaroid-front">
                             <img src="MT.jpeg" alt="Mia Tretta">
@@ -282,8 +353,7 @@
                     </div>
                 </div>
 
-                <!-- Micheal Citarella Polaroid Flip -->
-                <div class="polaroid-container rotate-minus-2 mt-4 md:mt-0" onclick="this.classList.toggle('flipped')">
+                <div class="polaroid-container rotate-minus-2 mt-4 md:mt-0 animate-on-scroll anim-drop" style="transition-delay: 0.3s;" onclick="this.classList.toggle('flipped')">
                     <div class="polaroid-inner">
                         <div class="polaroid-front">
                             <img src="MC.jpeg" alt="Micheal Citarella">
@@ -304,15 +374,13 @@
 
         <!-- CREW SECTION -->
         <section id="filmmakers" class="px-4">
-            <h3 class="text-4xl marker-font text-center mb-12 text-gray-800">Crew</h3>
+            <h3 class="text-4xl marker-font text-center mb-12 text-gray-800 typewriter-text">Crew</h3>
             
             <div class="flex flex-col lg:flex-row gap-12 items-center lg:items-start">
                 
-                <!-- Crew Photos Grid (Left) -->
                 <div class="w-full lg:w-1/2 grid grid-cols-1 sm:grid-cols-2 gap-6 justify-items-center">
                     
-                    <!-- Patrick Civitelli -->
-                    <div class="polaroid-container rotate-minus-2 w-full max-w-[280px]" onclick="this.classList.toggle('flipped')">
+                    <div class="polaroid-container rotate-minus-2 w-full max-w-[280px] animate-on-scroll anim-drop" style="transition-delay: 0.1s;" onclick="this.classList.toggle('flipped')">
                         <div class="polaroid-inner">
                             <div class="polaroid-front">
                                 <img src="About-me.jpg" alt="Patrick Civitelli">
@@ -323,14 +391,13 @@
                                 <h4 class="marker-font text-xl text-blue-600 mb-2">Patrick Civitelli</h4>
                                 <p class="handwritten text-lg text-gray-800 leading-tight text-left">
                                    Award-winning director and cinematographer Patrick Civitelli is best known for his documentaries Roma: WWF Superstar to Teacher, Ascending Beyond Shadows, and Paranormal Pursuits.
-A 2022 graduate of Masuk High School, Patrick is currently studying at Southern Connecticut State University, majoring in Communication and Film & Television with a minor in Journalism. A passionate storyteller, he aspires to tell stories no one else will.
+Patrick is currently studying at Southern Connecticut State University, majoring in Communication and Film & Television with a minor in Journalism. A passionate storyteller, he aspires to tell stories no one else will.
                                 </p>
                             </div>
                         </div>
                     </div>
                     
-                    <!-- Tristin Reeder -->
-                    <div class="polaroid-container rotate-2 w-full max-w-[280px] sm:mt-8" onclick="this.classList.toggle('flipped')">
+                    <div class="polaroid-container rotate-2 w-full max-w-[280px] sm:mt-8 animate-on-scroll anim-drop" style="transition-delay: 0.2s;" onclick="this.classList.toggle('flipped')">
                         <div class="polaroid-inner">
                             <div class="polaroid-front">
                                 <img src="TR.PNG" alt="Tristin Reeder">
@@ -346,8 +413,7 @@ A 2022 graduate of Masuk High School, Patrick is currently studying at Southern 
                         </div>
                     </div>
                     
-                    <!-- Cooper Chay-Dolan -->
-                    <div class="polaroid-container rotate-1 w-full max-w-[280px]" onclick="this.classList.toggle('flipped')">
+                    <div class="polaroid-container rotate-1 w-full max-w-[280px] animate-on-scroll anim-drop" style="transition-delay: 0.3s;" onclick="this.classList.toggle('flipped')">
                         <div class="polaroid-inner">
                             <div class="polaroid-front">
                                 <div class="w-full h-[250px] bg-gray-200 flex items-center justify-center text-gray-500 font-sans italic border border-gray-300">Not Pictured</div>
@@ -363,8 +429,7 @@ A 2022 graduate of Masuk High School, Patrick is currently studying at Southern 
                         </div>
                     </div>
                     
-                    <!-- Derek Ehmke -->
-                    <div class="polaroid-container rotate-minus-3 w-full max-w-[280px] sm:mt-8" onclick="this.classList.toggle('flipped')">
+                    <div class="polaroid-container rotate-minus-3 w-full max-w-[280px] sm:mt-8 animate-on-scroll anim-drop" style="transition-delay: 0.4s;" onclick="this.classList.toggle('flipped')">
                         <div class="polaroid-inner">
                             <div class="polaroid-front">
                                 <div class="w-full h-[250px] bg-gray-200 flex items-center justify-center text-gray-500 font-sans italic border border-gray-300">Not Pictured</div>
@@ -380,8 +445,7 @@ A 2022 graduate of Masuk High School, Patrick is currently studying at Southern 
                         </div>
                     </div>
                     
-                    <!-- Ben Cicale -->
-                    <div class="polaroid-container rotate-2 w-full max-w-[280px] sm:col-span-2 sm:mt-4" onclick="this.classList.toggle('flipped')">
+                    <div class="polaroid-container rotate-2 w-full max-w-[280px] sm:col-span-2 sm:mt-4 animate-on-scroll anim-drop" style="transition-delay: 0.5s;" onclick="this.classList.toggle('flipped')">
                         <div class="polaroid-inner">
                             <div class="polaroid-front">
                                 <img src="BC.png" alt="Ben Cicale">
@@ -399,14 +463,13 @@ A 2022 graduate of Masuk High School, Patrick is currently studying at Southern 
 
                 </div>
 
-                <!-- Director's Statement (Right) -->
-                <div class="w-full lg:w-1/2">
+                <div class="w-full lg:w-1/2 animate-on-scroll anim-slap" style="transition-delay: 0.6s;">
                     <div class="sticky-note sticky-blue rotate-1 p-8 border border-blue-300">
                         <div class="pin"></div>
-                        <h4 class="text-3xl marker-font mb-4 text-gray-800">Director's Statement</h4>
-                        <p class="text-xl md:text-2xl leading-relaxed text-gray-800">
-                            "In my lifetime, gun violence has sadly changed the American classroom. I was a third grader in the town over when the terrible shooting at Sandy Hook Elementary School happened. This event became a defining trauma for my generation. For too long, we have been stuck in a dangerous situation where real solutions are delayed, and meaningful change feels forever out of reach. This inaction represents a serious failure to protect the next generation. This film is dedicated to the architects of tomorrow. By centering the perspectives of the youth, those who carry the weight of the future, I aim to amplify student voices that have long been sidelined. My goal is to shift the narrative from mere conversation to the catalyst for real, systemic change.
-We must refuse to accept this violence as normal. The time for indifference is over. Words alone are not enough; we demand immediate and clear action to stop this crisis, and we need it now. This conversation is the essential first step."
+                        <h4 class="text-3xl marker-font mb-4 text-gray-800 typewriter-text">Director's Statement</h4>
+                        <!-- Typewriter text applied to the paragraph here -->
+                        <p class="text-xl md:text-2xl leading-relaxed text-gray-800 typewriter-text">
+                            "In my lifetime, gun violence has sadly changed the American classroom. I was a third grader in the town over when the terrible shooting at Sandy Hook Elementary School happened. This event became a defining trauma for my generation. For too long, we have been stuck in a dangerous situation where real solutions are delayed, and meaningful change feels forever out of reach. This inaction represents a serious failure to protect the next generation. This film is dedicated to the architects of tomorrow. By centering the perspectives of the youth, those who carry the weight of the future, I aim to amplify student voices that have long been sidelined. My goal is to shift the narrative from mere conversation to the catalyst for real, systemic change. We must refuse to accept this violence as normal. The time for indifference is over. Words alone are not enough; we demand immediate and clear action to stop this crisis, and we need it now. This conversation is the essential first step."
                         </p>
                         <p class="text-right mt-4 font-bold text-2xl handwritten">- Patrick C</p>
                     </div>
@@ -417,11 +480,11 @@ We must refuse to accept this violence as normal. The time for indifference is o
         <section id="media" class="px-4">
             <div class="text-center mb-8">
                 <div class="tape inline-block relative" style="top: 10px; width: 100px;"></div>
-                <h3 class="text-4xl marker-font text-gray-800 mt-4 relative z-10">Watch & Share</h3>
+                <h3 class="text-4xl marker-font text-gray-800 mt-4 relative z-10 typewriter-text">Watch & Share</h3>
             </div>
             
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div class="bg-white p-4 pb-12 box-shadow rotate-minus-1 border border-gray-300 relative">
+                <div class="bg-white p-4 pb-12 box-shadow rotate-minus-1 border border-gray-300 relative animate-on-scroll anim-drop" style="transition-delay: 0.1s;">
                     <div class="tape" style="top: -10px; right: -20px; left: auto; transform: rotate(45deg); width: 60px;"></div>
                     <div class="tape" style="top: -10px; left: -20px; transform: rotate(-45deg); width: 60px;"></div>
                     <div class="aspect-video bg-gray-200 flex items-center justify-center">
@@ -430,7 +493,7 @@ We must refuse to accept this violence as normal. The time for indifference is o
                     <p class="handwritten text-center text-2xl mt-4 text-gray-600">Darrell's Testimony</p>
                 </div>
                 
-                <div class="bg-white p-4 pb-12 box-shadow rotate-1 border border-gray-300 relative mt-4 md:mt-0">
+                <div class="bg-white p-4 pb-12 box-shadow rotate-1 border border-gray-300 relative mt-4 md:mt-0 animate-on-scroll anim-drop" style="transition-delay: 0.3s;">
                     <div class="tape" style="top: -10px; right: -20px; left: auto; transform: rotate(45deg); width: 60px;"></div>
                     <div class="tape" style="top: -10px; left: -20px; transform: rotate(-45deg); width: 60px;"></div>
                     <div class="aspect-video bg-gray-200 flex items-center justify-center">
@@ -441,11 +504,11 @@ We must refuse to accept this violence as normal. The time for indifference is o
             </div>
         </section>
 
-        <section id="resources" class="px-4">
-            <h3 class="text-4xl marker-font text-gray-800 mb-8 border-b-4 border-red-500 inline-block">Resource Center</h3>
+        <section id="resources" class="px-4 mt-16">
+            <h3 class="text-4xl marker-font text-gray-800 mb-8 border-b-4 border-red-500 inline-block typewriter-text">Resource Center</h3>
             <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
                 
-                <a href="https://studentsdemandaction.org/" target="_blank" class="block">
+                <a href="https://studentsdemandaction.org/" target="_blank" class="block animate-on-scroll anim-slap" style="transition-delay: 0.1s;">
                     <div class="sticky-note sticky-green rotate-minus-2 h-full cursor-pointer border border-green-300">
                         <div class="pin" style="background: #3182ce;"></div>
                         <h4 class="text-2xl font-bold marker-font text-gray-800 mt-2">Students Demand Action</h4>
@@ -454,7 +517,7 @@ We must refuse to accept this violence as normal. The time for indifference is o
                     </div>
                 </a>
 
-                <a href="https://www.everytown.org/" target="_blank" class="block">
+                <a href="https://www.everytown.org/" target="_blank" class="block animate-on-scroll anim-slap" style="transition-delay: 0.3s;">
                     <div class="sticky-note sticky-orange rotate-1 h-full cursor-pointer border border-orange-300">
                         <div class="pin" style="background: #dd6b20;"></div>
                         <h4 class="text-2xl font-bold marker-font text-gray-800 mt-2">Everytown</h4>
@@ -463,7 +526,7 @@ We must refuse to accept this violence as normal. The time for indifference is o
                     </div>
                 </a>
 
-                <a href="https://www.sandyhookpromise.org/" target="_blank" class="block">
+                <a href="https://www.sandyhookpromise.org/" target="_blank" class="block animate-on-scroll anim-slap" style="transition-delay: 0.5s;">
                     <div class="sticky-note sticky-pink rotate-2 h-full cursor-pointer border border-pink-300">
                         <div class="pin" style="background: #d53f8c;"></div>
                         <h4 class="text-2xl font-bold marker-font text-gray-800 mt-2">Sandy Hook Promise</h4>
@@ -476,9 +539,9 @@ We must refuse to accept this violence as normal. The time for indifference is o
         </section>
 
         <section id="events" class="px-4 mt-16 flex items-center justify-center">
-            <div class="sticky-note sticky-yellow rotate-1 w-full max-w-3xl text-center p-12 border border-yellow-400">
+            <div class="sticky-note sticky-yellow rotate-1 w-full max-w-3xl text-center p-12 border border-yellow-400 animate-on-scroll anim-slap">
                 <div class="tape" style="width: 120px;"></div>
-                <h3 class="text-5xl marker-font text-red-600 mb-8">Events & Screenings</h3>
+                <h3 class="text-5xl marker-font text-red-600 mb-8 typewriter-text">Events & Screenings</h3>
                 
                 <div class="mb-12">
                     <h4 class="text-3xl marker-font text-gray-800 mb-4 inline-block border-b-2 border-gray-400">Upcoming</h4>
@@ -508,6 +571,50 @@ We must refuse to accept this violence as normal. The time for indifference is o
             </div>
         </section>
 
+        <!-- AI INTERACTIVE TOOLS -->
+        <section id="ai-tools" class="px-4 mt-16">
+            <div class="text-center mb-8">
+                <div class="tape inline-block relative" style="top: 10px; width: 140px;"></div>
+                <h3 class="text-4xl marker-font text-red-600 mt-4 relative z-10 typewriter-text">Act & Discuss</h3>
+                <p class="text-xl handwritten text-gray-600 mt-2">Interactive tools powered by AI to help you lead the change.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+                
+                <div class="sticky-note sticky-pink rotate-1 border border-pink-300 animate-on-scroll anim-slap" style="transition-delay: 0.1s;">
+                    <div class="pin" style="background: #d53f8c;"></div>
+                    <h4 class="text-3xl marker-font text-gray-800 mb-2">How Can I Help?</h4>
+                    <p class="handwritten text-xl text-gray-700 mb-6">Tell us your skills and availability, and we'll generate a personalized action plan to help end gun violence.</p>
+                    
+                    <div class="space-y-4">
+                        <input type="text" id="userSkills" placeholder="My skills (e.g. writing, graphic design)..." class="lined-input text-lg w-full">
+                        <input type="text" id="userTime" placeholder="Time I have (e.g. 1 hour a week)..." class="lined-input text-lg w-full">
+                        <button id="btnAction" onclick="generateActionPlan()" class="w-full bg-pink-500 text-white marker-font text-xl py-3 rounded shadow hover:bg-pink-600 transition-colors">
+                            ✨ Generate Action Plan
+                        </button>
+                    </div>
+                    
+                    <div id="actionResult" class="mt-6 handwritten text-xl text-gray-800 hidden whitespace-pre-wrap border-t-2 border-dashed border-gray-400 pt-6"></div>
+                </div>
+
+                <div class="sticky-note sticky-blue rotate-minus-1 border border-blue-300 animate-on-scroll anim-slap" style="transition-delay: 0.3s;">
+                    <div class="pin" style="background: #3182ce;"></div>
+                    <h4 class="text-3xl marker-font text-gray-800 mb-2">Host a Screening</h4>
+                    <p class="handwritten text-xl text-gray-700 mb-6">Watching with a group? Get customized discussion questions tailored perfectly to your audience.</p>
+                    
+                    <div class="space-y-4">
+                        <input type="text" id="audienceType" placeholder="Audience (e.g. high schoolers, parents)..." class="lined-input text-lg w-full mb-2">
+                        <button id="btnGuide" onclick="generateDiscussionGuide()" class="w-full bg-blue-500 text-white marker-font text-xl py-3 rounded shadow hover:bg-blue-600 transition-colors">
+                            ✨ Create Discussion Guide
+                        </button>
+                    </div>
+                    
+                    <div id="guideResult" class="mt-6 handwritten text-xl text-gray-800 hidden whitespace-pre-wrap border-t-2 border-dashed border-gray-400 pt-6"></div>
+                </div>
+
+            </div>
+        </section>
+
     </main>
 
     <footer class="mt-12 pb-16 relative" id="contact">
@@ -517,7 +624,7 @@ We must refuse to accept this violence as normal. The time for indifference is o
             <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12">
                 
                 <div>
-                    <h3 class="text-4xl marker-font mb-6 text-yellow-300">Get in Touch</h3>
+                    <h3 class="text-4xl marker-font mb-6 text-yellow-300 typewriter-text">Get in Touch</h3>
                     <p class="text-2xl handwritten mb-8 text-gray-300">Want to host a screening or get invovled? Reach out to us!</p>
                     
                     <div class="flex space-x-6 mt-8">
@@ -533,7 +640,7 @@ We must refuse to accept this violence as normal. The time for indifference is o
                     </div>
                 </div>
 
-                <div class="bg-[#fefcbf] p-8 rounded text-gray-800 rotate-1 shadow-lg relative border border-yellow-400">
+                <div class="bg-[#fefcbf] p-8 rounded text-gray-800 rotate-1 shadow-lg relative border border-yellow-400 animate-on-scroll anim-slap" style="transition-delay: 0.3s;">
                     <div class="tape" style="top: -10px; width: 80px;"></div>
                     
                     <div data-fs-success class="hidden text-3xl handwritten text-green-700 mb-6 text-center border-b-2 border-green-300 pb-2">
@@ -579,5 +686,198 @@ We must refuse to accept this violence as normal. The time for indifference is o
         formspree('initForm', { formElement: '#contact-form', formId: 'xdayjlvk' });
     </script>
     <script src="https://unpkg.com/@formspree/ajax@1" defer></script>
+
+    <!-- Gemini API AI Tool Integration -->
+    <script>
+        const apiKey = ""; 
+
+        async function fetchGeminiWithRetry(prompt, retries = 5) {
+            const delays = [1000, 2000, 4000, 8000, 16000];
+            const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
+            
+            const payload = {
+                contents: [{ parts: [{ text: prompt }] }],
+                systemInstruction: {
+                    parts: [{ text: "You are an inspiring, empathetic assistant helping organizers and audiences connect with a student-led documentary ('If Not Us') about fighting gun violence. Do NOT use markdown formatting like asterisks (**). Output responses in plain text with simple numbering or bullet points." }]
+                }
+            };
+
+            for (let i = 0; i < retries; i++) {
+                try {
+                    const response = await fetch(url, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+                    
+                    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+                    
+                    const data = await response.json();
+                    return data.candidates?.[0]?.content?.parts?.[0]?.text;
+                } catch (e) {
+                    if (i === retries - 1) throw e;
+                    await new Promise(res => setTimeout(res, delays[i]));
+                }
+            }
+        }
+
+        async function generateActionPlan() {
+            const skills = document.getElementById('userSkills').value || "general enthusiasm";
+            const time = document.getElementById('userTime').value || "a little bit of free time";
+            const btn = document.getElementById('btnAction');
+            const resultDiv = document.getElementById('actionResult');
+
+            btn.disabled = true;
+            btn.innerText = "⏳ Generating Plan...";
+            resultDiv.classList.add('hidden');
+
+            const prompt = `A user wants to help end gun violence and support the 'If Not Us' movement. They have these skills: "${skills}", and this much time available: "${time}". Generate a concise, inspiring, 3-step personalized action plan for them. Keep it friendly and actionable.`;
+
+            try {
+                const text = await fetchGeminiWithRetry(prompt);
+                if (text) {
+                    resultDiv.innerText = text;
+                    resultDiv.classList.remove('hidden');
+                }
+            } catch (error) {
+                resultDiv.innerText = "We're having trouble connecting to the planner right now. Please try again later!";
+                resultDiv.classList.remove('hidden');
+            } finally {
+                btn.disabled = false;
+                btn.innerText = "✨ Generate Action Plan";
+            }
+        }
+
+        async function generateDiscussionGuide() {
+            const audience = document.getElementById('audienceType').value || "general audiences";
+            const btn = document.getElementById('btnGuide');
+            const resultDiv = document.getElementById('guideResult');
+
+            btn.disabled = true;
+            btn.innerText = "⏳ Creating Guide...";
+            resultDiv.classList.add('hidden');
+
+            const prompt = `Create a film discussion guide for the documentary 'If Not Us' (about student activists fighting gun violence). Tailor exactly 3 deep, thought-provoking discussion questions specifically for an audience of: "${audience}". Focus on themes of youth activism, grief, and systemic change. Keep the questions insightful and concise.`;
+
+            try {
+                const text = await fetchGeminiWithRetry(prompt);
+                if (text) {
+                    resultDiv.innerText = text;
+                    resultDiv.classList.remove('hidden');
+                }
+            } catch (error) {
+                resultDiv.innerText = "We're having trouble generating the guide right now. Please try again later!";
+                resultDiv.classList.remove('hidden');
+            } finally {
+                btn.disabled = false;
+                btn.innerText = "✨ Create Discussion Guide";
+            }
+        }
+    </script>
+
+    <!-- Scroll & Animations Logic -->
+    <script>
+        // Paper Airplane Fly to Top logic
+        const backToTopBtn = document.getElementById('backToTop');
+        const airplaneIcon = document.getElementById('airplaneIcon');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 500) {
+                backToTopBtn.classList.remove('opacity-0', 'pointer-events-none');
+                backToTopBtn.classList.add('opacity-100', 'pointer-events-auto');
+            } else {
+                backToTopBtn.classList.add('opacity-0', 'pointer-events-none');
+                backToTopBtn.classList.remove('opacity-100', 'pointer-events-auto');
+            }
+        });
+
+        function flyToTop() {
+            airplaneIcon.classList.add('anim-fly-away');
+            window.scrollTo({top: 0, behavior: 'smooth'});
+            
+            // Reset the airplane so it can be used again
+            setTimeout(() => {
+                airplaneIcon.classList.remove('anim-fly-away');
+            }, 1200); 
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            const typewriterElements = document.querySelectorAll('.typewriter-text');
+            typewriterElements.forEach(el => {
+                el.dataset.originalText = el.innerText;
+                el.innerText = ''; 
+                el.classList.add('ready'); 
+            });
+
+            const animationObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        
+                        if (entry.target.classList.contains('animate-on-scroll')) {
+                            entry.target.classList.add('is-visible');
+                        }
+
+                        if (entry.target.classList.contains('typewriter-text') && !entry.target.classList.contains('typed')) {
+                            entry.target.classList.add('typed');
+                            
+                            // Check if the text is inside an animated container to give the container time to "slap" down first
+                            let delay = 0;
+                            if (entry.target.closest('.anim-slap') || entry.target.closest('.anim-drop')) {
+                                delay = 400; // wait 400ms before starting to write
+                            }
+                            
+                            setTimeout(() => {
+                                runTypewriterEffect(entry.target);
+                            }, delay);
+                        }
+
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { 
+                threshold: 0.15, 
+                rootMargin: "0px 0px -50px 0px" 
+            });
+
+            document.querySelectorAll('.animate-on-scroll, .typewriter-text').forEach(el => {
+                animationObserver.observe(el);
+            });
+            
+        });
+
+        function runTypewriterEffect(element) {
+            const text = element.dataset.originalText;
+            let i = 0;
+            
+            element.innerHTML = '<span class="typing-content"></span><span class="typewriter-cursor"></span>';
+            const textSpan = element.querySelector('.typing-content');
+            const cursor = element.querySelector('.typewriter-cursor');
+
+            // If the text is really long (like a paragraph), we write it faster
+            const isLongText = text.length > 80;
+
+            function typeNextChar() {
+                if (i < text.length) {
+                    // For long text, type 2 or 3 characters at a time so people don't have to wait 2 minutes to read it
+                    let charsToType = isLongText ? Math.floor(Math.random() * 3) + 2 : 1;
+                    
+                    textSpan.innerHTML += text.substring(i, i + charsToType);
+                    i += charsToType;
+                    
+                    // Adjust typing speed based on length
+                    let randomSpeed = isLongText ? (Math.floor(Math.random() * 15) + 5) : (Math.floor(Math.random() * 40) + 30); 
+                    
+                    setTimeout(typeNextChar, randomSpeed);
+                } else {
+                    setTimeout(() => {
+                        cursor.style.display = 'none';
+                    }, 1500);
+                }
+            }
+            
+            typeNextChar();
+        }
+    </script>
 </body>
 </html>
