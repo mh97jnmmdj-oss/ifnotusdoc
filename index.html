@@ -390,8 +390,7 @@
                             <div class="polaroid-back">
                                 <h4 class="marker-font text-xl text-blue-600 mb-2">Patrick Civitelli</h4>
                                 <p class="handwritten text-lg text-gray-800 leading-tight text-left">
-                                   Award-winning director and cinematographer Patrick Civitelli is best known for his documentaries Roma: WWF Superstar to Teacher, Ascending Beyond Shadows, and Paranormal Pursuits.
-A 2022 graduate of Masuk High School, Patrick is currently studying at Southern Connecticut State University, majoring in Communication and Film & Television with a minor in Journalism. A passionate storyteller, he aspires to tell stories no one else will.
+                                   Award-winning director and cinematographer Patrick Civitelli is best known for his documentaries Roma: WWF Superstar to Teacher, Ascending Beyond Shadows, and Paranormal Pursuits. Patrick is currently studying at Southern Connecticut State University, majoring in Communication and Film & Television with a minor in Journalism. He is a passionate storyteller and aspires to tell stories no one else will.
                                 </p>
                             </div>
                         </div>
@@ -407,7 +406,7 @@ A 2022 graduate of Masuk High School, Patrick is currently studying at Southern 
                             <div class="polaroid-back">
                                 <h4 class="marker-font text-xl text-blue-600 mb-2">Tristin Reeder</h4>
                                 <p class="handwritten text-lg text-gray-800 leading-tight text-left">
-                                      Bio coming soon
+                                      Tristin Reeder is a director and cinematographer specializing in visual storytelling. A senior Film student at Southern Connecticut State University, some projects he has worked on include Ascending Beyond Shadows, The Yearning of One and Paranormal Pursuits. He is currently expanding his expertise in lighting and composition as an aspiring Director of Photography.
                                 </p>
                             </div>
                         </div>
@@ -571,50 +570,6 @@ A 2022 graduate of Masuk High School, Patrick is currently studying at Southern 
             </div>
         </section>
 
-        <!-- AI INTERACTIVE TOOLS -->
-        <section id="ai-tools" class="px-4 mt-16">
-            <div class="text-center mb-8">
-                <div class="tape inline-block relative" style="top: 10px; width: 140px;"></div>
-                <h3 class="text-4xl marker-font text-red-600 mt-4 relative z-10 typewriter-text">Act & Discuss</h3>
-                <p class="text-xl handwritten text-gray-600 mt-2">Interactive tools powered by AI to help you lead the change.</p>
-            </div>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-                
-                <div class="sticky-note sticky-pink rotate-1 border border-pink-300 animate-on-scroll anim-slap" style="transition-delay: 0.1s;">
-                    <div class="pin" style="background: #d53f8c;"></div>
-                    <h4 class="text-3xl marker-font text-gray-800 mb-2">How Can I Help?</h4>
-                    <p class="handwritten text-xl text-gray-700 mb-6">Tell us your skills and availability, and we'll generate a personalized action plan to help end gun violence.</p>
-                    
-                    <div class="space-y-4">
-                        <input type="text" id="userSkills" placeholder="My skills (e.g. writing, graphic design)..." class="lined-input text-lg w-full">
-                        <input type="text" id="userTime" placeholder="Time I have (e.g. 1 hour a week)..." class="lined-input text-lg w-full">
-                        <button id="btnAction" onclick="generateActionPlan()" class="w-full bg-pink-500 text-white marker-font text-xl py-3 rounded shadow hover:bg-pink-600 transition-colors">
-                            ✨ Generate Action Plan
-                        </button>
-                    </div>
-                    
-                    <div id="actionResult" class="mt-6 handwritten text-xl text-gray-800 hidden whitespace-pre-wrap border-t-2 border-dashed border-gray-400 pt-6"></div>
-                </div>
-
-                <div class="sticky-note sticky-blue rotate-minus-1 border border-blue-300 animate-on-scroll anim-slap" style="transition-delay: 0.3s;">
-                    <div class="pin" style="background: #3182ce;"></div>
-                    <h4 class="text-3xl marker-font text-gray-800 mb-2">Host a Screening</h4>
-                    <p class="handwritten text-xl text-gray-700 mb-6">Watching with a group? Get customized discussion questions tailored perfectly to your audience.</p>
-                    
-                    <div class="space-y-4">
-                        <input type="text" id="audienceType" placeholder="Audience (e.g. high schoolers, parents)..." class="lined-input text-lg w-full mb-2">
-                        <button id="btnGuide" onclick="generateDiscussionGuide()" class="w-full bg-blue-500 text-white marker-font text-xl py-3 rounded shadow hover:bg-blue-600 transition-colors">
-                            ✨ Create Discussion Guide
-                        </button>
-                    </div>
-                    
-                    <div id="guideResult" class="mt-6 handwritten text-xl text-gray-800 hidden whitespace-pre-wrap border-t-2 border-dashed border-gray-400 pt-6"></div>
-                </div>
-
-            </div>
-        </section>
-
     </main>
 
     <footer class="mt-12 pb-16 relative" id="contact">
@@ -686,94 +641,6 @@ A 2022 graduate of Masuk High School, Patrick is currently studying at Southern 
         formspree('initForm', { formElement: '#contact-form', formId: 'xdayjlvk' });
     </script>
     <script src="https://unpkg.com/@formspree/ajax@1" defer></script>
-
-    <!-- Gemini API AI Tool Integration -->
-    <script>
-        const apiKey = ""; 
-
-        async function fetchGeminiWithRetry(prompt, retries = 5) {
-            const delays = [1000, 2000, 4000, 8000, 16000];
-            const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
-            
-            const payload = {
-                contents: [{ parts: [{ text: prompt }] }],
-                systemInstruction: {
-                    parts: [{ text: "You are an inspiring, empathetic assistant helping organizers and audiences connect with a student-led documentary ('If Not Us') about fighting gun violence. Do NOT use markdown formatting like asterisks (**). Output responses in plain text with simple numbering or bullet points." }]
-                }
-            };
-
-            for (let i = 0; i < retries; i++) {
-                try {
-                    const response = await fetch(url, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(payload)
-                    });
-                    
-                    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-                    
-                    const data = await response.json();
-                    return data.candidates?.[0]?.content?.parts?.[0]?.text;
-                } catch (e) {
-                    if (i === retries - 1) throw e;
-                    await new Promise(res => setTimeout(res, delays[i]));
-                }
-            }
-        }
-
-        async function generateActionPlan() {
-            const skills = document.getElementById('userSkills').value || "general enthusiasm";
-            const time = document.getElementById('userTime').value || "a little bit of free time";
-            const btn = document.getElementById('btnAction');
-            const resultDiv = document.getElementById('actionResult');
-
-            btn.disabled = true;
-            btn.innerText = "⏳ Generating Plan...";
-            resultDiv.classList.add('hidden');
-
-            const prompt = `A user wants to help end gun violence and support the 'If Not Us' movement. They have these skills: "${skills}", and this much time available: "${time}". Generate a concise, inspiring, 3-step personalized action plan for them. Keep it friendly and actionable.`;
-
-            try {
-                const text = await fetchGeminiWithRetry(prompt);
-                if (text) {
-                    resultDiv.innerText = text;
-                    resultDiv.classList.remove('hidden');
-                }
-            } catch (error) {
-                resultDiv.innerText = "We're having trouble connecting to the planner right now. Please try again later!";
-                resultDiv.classList.remove('hidden');
-            } finally {
-                btn.disabled = false;
-                btn.innerText = "✨ Generate Action Plan";
-            }
-        }
-
-        async function generateDiscussionGuide() {
-            const audience = document.getElementById('audienceType').value || "general audiences";
-            const btn = document.getElementById('btnGuide');
-            const resultDiv = document.getElementById('guideResult');
-
-            btn.disabled = true;
-            btn.innerText = "⏳ Creating Guide...";
-            resultDiv.classList.add('hidden');
-
-            const prompt = `Create a film discussion guide for the documentary 'If Not Us' (about student activists fighting gun violence). Tailor exactly 3 deep, thought-provoking discussion questions specifically for an audience of: "${audience}". Focus on themes of youth activism, grief, and systemic change. Keep the questions insightful and concise.`;
-
-            try {
-                const text = await fetchGeminiWithRetry(prompt);
-                if (text) {
-                    resultDiv.innerText = text;
-                    resultDiv.classList.remove('hidden');
-                }
-            } catch (error) {
-                resultDiv.innerText = "We're having trouble generating the guide right now. Please try again later!";
-                resultDiv.classList.remove('hidden');
-            } finally {
-                btn.disabled = false;
-                btn.innerText = "✨ Create Discussion Guide";
-            }
-        }
-    </script>
 
     <!-- Scroll & Animations Logic -->
     <script>
