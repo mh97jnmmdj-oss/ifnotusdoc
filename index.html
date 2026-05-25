@@ -24,6 +24,7 @@
 
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Kalam:wght@300;400;700&family=Permanent+Marker&display=swap" rel="stylesheet">
+    
     <style>
         /* Base Theme Styles */
         body {
@@ -93,9 +94,7 @@
             z-index: 5;
         }
 
-        /* -------------------------------------
-           Polaroid 3D Flip Mechanics
-           ------------------------------------- */
+        /* Polaroid 3D Flip Mechanics */
         .polaroid-container {
             perspective: 1000px;
             cursor: pointer;
@@ -176,9 +175,7 @@
             justify-content: center;
         }
 
-        /* -------------------------------------
-           Scroll Animations (Sticky Notes & Polaroids)
-           ------------------------------------- */
+        /* Scroll Animations (Sticky Notes & Polaroids) */
         .animate-on-scroll {
             opacity: 0;
             will-change: opacity, transform, scale, translate;
@@ -201,9 +198,7 @@
             translate: 0 0;
         }
 
-        /* -------------------------------------
-           Typewriter (Pencil) Effect
-           ------------------------------------- */
+        /* Typewriter (Pencil) Effect */
         .typewriter-cursor {
             display: inline-block;
             width: 4px;
@@ -225,16 +220,14 @@
             opacity: 1;
         }
 
-        /* -------------------------------------
-           Paper Airplane Scroll-to-Top Animation
-           ------------------------------------- */
+        /* Paper Airplane Scroll-to-Top Animation */
         .anim-fly-away {
             animation: flyAway 1.2s ease-in forwards;
         }
         @keyframes flyAway {
             0% { transform: translate(0, 0) scale(1) rotate(0deg); opacity: 1; }
-            30% { transform: translate(20px, 20px) scale(0.9) rotate(15deg); opacity: 1; } /* Pulls back to prep launch */
-            100% { transform: translate(300px, -150vh) scale(0.5) rotate(-30deg); opacity: 0; } /* Shoots into the sky */
+            30% { transform: translate(20px, 20px) scale(0.9) rotate(15deg); opacity: 1; }
+            100% { transform: translate(300px, -150vh) scale(0.5) rotate(-30deg); opacity: 0; }
         }
 
         /* Custom Form Inputs */
@@ -276,6 +269,7 @@
         </div>
     </div>
 
+    <!-- Navigation -->
     <nav class="absolute top-4 right-8 flex space-x-4 z-50">
         <a href="https://www.instagram.com/ifnotusdoc?igsh=dG16NTNuczhrMjI5&utm_source=qr" target="_blank" class="text-gray-700 hover:text-pink-600 transition-colors" title="Instagram">
             <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
@@ -283,8 +277,12 @@
         <a href="https://www.facebook.com/share/18X2TN5dnU/?mibextid=wwXIfr" target="_blank" class="text-gray-700 hover:text-blue-600 transition-colors" title="Facebook">
             <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
         </a>
+        <a href="https://x.com/ifnotusdoc" target="_blank" class="text-gray-700 hover:text-black transition-colors" title="X (Twitter)">
+            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        </a>
     </nav>
 
+    <!-- Header -->
     <header class="max-w-5xl mx-auto px-4 py-16 text-center mt-8 relative">
         <div class="inline-block relative">
             <div class="tape" style="top: -20px; width: 150px; height: 40px;"></div>
@@ -306,7 +304,6 @@
             <div class="max-w-3xl mx-auto mb-12 bg-white p-8 box-shadow rotate-minus-1 border border-gray-200 animate-on-scroll anim-slap" style="box-shadow: 4px 4px 0px rgba(0,0,0,0.1);">
                 <div class="pin"></div>
                 <h3 class="text-3xl font-bold marker-font mb-4 mt-2 text-gray-800 typewriter-text">What is "If Not Us"?</h3>
-                <!-- Typewriter text applied to the paragraph here -->
                 <p class="text-xl md:text-2xl leading-relaxed typewriter-text">
                     If Not Us is a documentary about students fight to end school shootings, highlighting young survivors and activists turning their experiences into powerful action.
                 </p>
@@ -318,7 +315,6 @@
                 <div class="tape" style="width: 120px;"></div>
                 <h3 class="text-4xl marker-font text-gray-800 mb-6 border-b-2 border-gray-400 inline-block typewriter-text">Full Synopsis</h3>
                 <div class="space-y-4 text-xl md:text-2xl leading-relaxed text-gray-800">
-                    <!-- Typewriter text applied to the paragraphs here -->
                     <p class="typewriter-text">
                         If Not Us is a compelling documentary centered on the student-led movement to end school shootings. 
                     </p>
@@ -402,7 +398,8 @@
                             <div class="polaroid-back">
                                 <h4 class="marker-font text-xl text-blue-600 mb-2">Patrick Civitelli</h4>
                                 <p class="handwritten text-lg text-gray-800 leading-tight text-left">
-                                   Award-winning director and cinematographer Patrick Civitelli is best known for his documentaries Roma: WWF Superstar to Teacher, Ascending Beyond Shadows, and Paranormal Pursuits. Patrick is currently studying at Southern Connecticut State University, majoring in Communication and Film & Television with a minor in Journalism. He is a passionate storyteller and aspires to tell stories no one else will.
+                                   Award-winning director and cinematographer Patrick Civitelli is best known for his documentaries Roma: WWF Superstar to Teacher, Ascending Beyond Shadows, and Paranormal Pursuits.
+A 2022 graduate of Masuk High School, Patrick is currently studying at Southern Connecticut State University, majoring in Communication and Film & Television with a minor in Journalism. A passionate storyteller, he aspires to tell stories no one else will.
                                 </p>
                             </div>
                         </div>
@@ -418,56 +415,38 @@
                             <div class="polaroid-back">
                                 <h4 class="marker-font text-xl text-blue-600 mb-2">Tristin Reeder</h4>
                                 <p class="handwritten text-lg text-gray-800 leading-tight text-left">
-                                      Tristin Reeder is a director and cinematographer specializing in visual storytelling. A senior Film student at Southern Connecticut State University, some projects he has worked on include Ascending Beyond Shadows, The Yearning of One and Paranormal Pursuits. He is currently expanding his expertise in lighting and composition as an aspiring Director of Photography.
+                                      Bio coming soon
                                 </p>
                             </div>
                         </div>
                     </div>
                     
-                    <div class="polaroid-container rotate-1 w-full max-w-[280px] animate-on-scroll anim-drop" style="transition-delay: 0.3s;" onclick="this.classList.toggle('flipped')">
+                    <!-- Cooper (No Flip/Bio) -->
+                    <div class="polaroid-container rotate-1 w-full max-w-[280px] animate-on-scroll anim-drop" style="transition-delay: 0.3s;">
                         <div class="polaroid-inner">
                             <div class="polaroid-front">
                                 <div class="w-full h-[250px] bg-gray-200 flex items-center justify-center text-gray-500 font-sans italic border border-gray-300">Not Pictured</div>
                                 <div class="polaroid-caption text-xl leading-tight pb-2">Cooper Chay-Dolan <br><span class="text-sm">Audio</span></div>
-                                <div class="text-right text-gray-400 text-xs handwritten mt-2">Tap to flip ↻</div>
-                            </div>
-                            <div class="polaroid-back">
-                                <h4 class="marker-font text-xl text-blue-600 mb-2">Cooper Chay-Dolan</h4>
-                                <p class="handwritten text-lg text-gray-800 leading-tight text-left">
-                                      Bio coming soon
-                                </p>
                             </div>
                         </div>
                     </div>
                     
-                    <div class="polaroid-container rotate-minus-3 w-full max-w-[280px] sm:mt-8 animate-on-scroll anim-drop" style="transition-delay: 0.4s;" onclick="this.classList.toggle('flipped')">
+                    <!-- Derek (No Flip/Bio) -->
+                    <div class="polaroid-container rotate-minus-3 w-full max-w-[280px] sm:mt-8 animate-on-scroll anim-drop" style="transition-delay: 0.4s;">
                         <div class="polaroid-inner">
                             <div class="polaroid-front">
                                 <div class="w-full h-[250px] bg-gray-200 flex items-center justify-center text-gray-500 font-sans italic border border-gray-300">Not Pictured</div>
                                 <div class="polaroid-caption text-xl leading-tight pb-2">Derek Ehmke <br><span class="text-sm">Graphic Designer</span></div>
-                                <div class="text-right text-gray-400 text-xs handwritten mt-2">Tap to flip ↻</div>
-                            </div>
-                            <div class="polaroid-back">
-                                <h4 class="marker-font text-xl text-blue-600 mb-2">Derek Ehmke</h4>
-                                <p class="handwritten text-lg text-gray-800 leading-tight text-left">
-                                      Bio coming soon
-                                </p>
                             </div>
                         </div>
                     </div>
                     
-                    <div class="polaroid-container rotate-2 w-full max-w-[280px] sm:col-span-2 sm:mt-4 animate-on-scroll anim-drop" style="transition-delay: 0.5s;" onclick="this.classList.toggle('flipped')">
+                    <!-- Ben (No Flip/Bio) -->
+                    <div class="polaroid-container rotate-2 w-full max-w-[280px] sm:col-span-2 sm:mt-4 animate-on-scroll anim-drop" style="transition-delay: 0.5s;">
                         <div class="polaroid-inner">
                             <div class="polaroid-front">
                                 <img src="BC.png" alt="Ben Cicale">
                                 <div class="polaroid-caption text-xl leading-tight pb-2">Ben Cicale <br><span class="text-sm">Production Assistant</span></div>
-                                <div class="text-right text-gray-400 text-xs handwritten mt-2">Tap to flip ↻</div>
-                            </div>
-                            <div class="polaroid-back">
-                                <h4 class="marker-font text-xl text-blue-600 mb-2">Ben Cicale</h4>
-                                <p class="handwritten text-lg text-gray-800 leading-tight text-left">
-                                      Bio coming soon
-                                </p>
                             </div>
                         </div>
                     </div>
@@ -478,7 +457,6 @@
                     <div class="sticky-note sticky-blue rotate-1 p-8 border border-blue-300">
                         <div class="pin"></div>
                         <h4 class="text-3xl marker-font mb-4 text-gray-800 typewriter-text">Director's Statement</h4>
-                        <!-- Typewriter text applied to the paragraph here -->
                         <p class="text-xl md:text-2xl leading-relaxed text-gray-800 typewriter-text">
                             "In my lifetime, gun violence has sadly changed the American classroom. I was a third grader in the town over when the terrible shooting at Sandy Hook Elementary School happened. This event became a defining trauma for my generation. For too long, we have been stuck in a dangerous situation where real solutions are delayed, and meaningful change feels forever out of reach. This inaction represents a serious failure to protect the next generation. This film is dedicated to the architects of tomorrow. By centering the perspectives of the youth, those who carry the weight of the future, I aim to amplify student voices that have long been sidelined. My goal is to shift the narrative from mere conversation to the catalyst for real, systemic change. We must refuse to accept this violence as normal. The time for indifference is over. Words alone are not enough; we demand immediate and clear action to stop this crisis, and we need it now. This conversation is the essential first step."
                         </p>
@@ -601,6 +579,9 @@
                         <a href="https://www.facebook.com/share/18X2TN5dnU/?mibextid=wwXIfr" target="_blank" class="bg-white p-3 rounded-full text-gray-900 hover:bg-blue-600 hover:text-white transition-colors transform hover:scale-110">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
                         </a>
+                        <a href="https://x.com/ifnotusdoc" target="_blank" class="bg-white p-3 rounded-full text-gray-900 hover:bg-black hover:text-white transition-colors transform hover:scale-110">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                        </a>
                         <a href="https://www.youtube.com/@CinematographybyPatrick" target="_blank" class="bg-white p-3 rounded-full text-gray-900 hover:bg-red-600 hover:text-white transition-colors transform hover:scale-110">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33 2.78 2.78 0 0 0 1.94 2C5.12 19.5 12 19.5 12 19.5s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.33 29 29 0 0 0-.46-5.33z"></path><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon></svg>
                         </a>
@@ -648,6 +629,7 @@
         document.getElementById('year').textContent = new Date().getFullYear();
     </script>
 
+    <!-- Formspree Integration -->
     <script>
         window.formspree = window.formspree || function () { (formspree.q = formspree.q || []).push(arguments); };
         formspree('initForm', { formElement: '#contact-form', formId: 'xdayjlvk' });
@@ -738,7 +720,7 @@
 
             function typeNextChar() {
                 if (i < text.length) {
-                    // For long text, type 2 or 3 characters at a time so people don't have to wait 2 minutes to read it
+                    // For long text, type 2 or 3 characters at a time so people don't have to wait to read it
                     let charsToType = isLongText ? Math.floor(Math.random() * 3) + 2 : 1;
                     
                     textSpan.innerHTML += text.substring(i, i + charsToType);
