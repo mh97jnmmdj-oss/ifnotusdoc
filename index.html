@@ -9,13 +9,14 @@
     <link rel="icon" type="image/png" href="If Not Us PP.png">
     <link rel="apple-touch-icon" href="If Not Us PP.png">
 
-    <!-- Social Sharing Meta Tags -->
+    <!-- Social Sharing Meta Tags (Facebook/LinkedIn/iMessage) -->
     <meta property="og:title" content="If Not Us - Documentary">
     <meta property="og:description" content="A compelling documentary centered on the student-led movement to end school shootings.">
     <meta property="og:image" content="If Not Us PP.png">
     <meta property="og:url" content="https://ifnotusdoc.org">
     <meta property="og:type" content="website">
 
+    <!-- Social Sharing Meta Tags (Twitter/X) -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="If Not Us - Documentary">
     <meta name="twitter:description" content="A compelling documentary centered on the student-led movement to end school shootings.">
@@ -276,6 +277,7 @@
         <a href="https://www.facebook.com/share/18X2TN5dnU/?mibextid=wwXIfr" target="_blank" class="text-gray-700 hover:text-blue-600 transition-colors" title="Facebook">
             <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
         </a>
+        <!-- Added X (Twitter) Link -->
         <a href="https://x.com/ifnotusdoc" target="_blank" class="text-gray-700 hover:text-black transition-colors" title="X (Twitter)">
             <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
         </a>
@@ -333,7 +335,7 @@
             <div class="max-w-4xl mx-auto bg-white p-4 pb-8 box-shadow rotate-1 border border-gray-300 relative animate-on-scroll anim-drop" style="box-shadow: 4px 4px 12px rgba(0,0,0,0.15);">
                 <div class="tape" style="top: -15px; left: 50%; transform: translateX(-50%) rotate(2deg); width: 140px;"></div>
                 <div class="aspect-video bg-gray-200 flex items-center justify-center border border-gray-200">
-                    <iframe class="w-full h-full" src="https://www.youtube.com/embed/h9wS_wCA0zU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    <iframe class="w-full h-full" src="https://www.youtube.com/embed/tfn8OKr09jA" title="If Not Us | Trailer 3" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
                 </div>
                 <p class="handwritten text-center text-3xl mt-6 text-gray-700 typewriter-text">Watch the trailer</p>
             </div>
@@ -385,79 +387,86 @@
             
             <div class="flex flex-col lg:flex-row gap-12 items-center lg:items-start">
                 
-                <div class="w-full lg:w-1/2 grid grid-cols-1 sm:grid-cols-2 gap-6 justify-items-center">
-                    
-                    <div class="polaroid-container rotate-minus-2 w-full max-w-[280px] animate-on-scroll anim-drop" style="transition-delay: 0.1s;" onclick="this.classList.toggle('flipped')">
-                        <div class="polaroid-inner">
-                            <div class="polaroid-front">
-                                <img src="About-me.jpg" alt="Patrick Civitelli">
-                                <div class="polaroid-caption text-xl leading-tight pb-2">Patrick Civitelli <br><span class="text-sm">Director, Co-DP, & Producer</span></div>
-                                <div class="text-right text-gray-400 text-xs handwritten mt-2">Tap to flip ↻</div>
-                            </div>
-                            <div class="polaroid-back">
-                                <h4 class="marker-font text-xl text-blue-600 mb-2">Patrick Civitelli</h4>
-                                <p class="handwritten text-lg text-gray-800 leading-tight text-left">
-                                   Award-winning director and cinematographer Patrick Civitelli is best known for his documentaries Roma: WWF Superstar to Teacher, Ascending Beyond Shadows, and Paranormal Pursuits. Patrick is currently studying at Southern Connecticut State University, majoring in Communication and Film & Television with a minor in Journalism. He is a passionate storyteller and aspires to tell stories no one else will.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="polaroid-container rotate-2 w-full max-w-[280px] sm:mt-8 animate-on-scroll anim-drop" style="transition-delay: 0.2s;" onclick="this.classList.toggle('flipped')">
-                        <div class="polaroid-inner">
-                            <div class="polaroid-front">
-                                <img src="TR.PNG" alt="Tristin Reeder">
-                                <div class="polaroid-caption text-xl leading-tight pb-2">Tristin Reeder <br><span class="text-sm">Co-Director of Photography</span></div>
-                                <div class="text-right text-gray-400 text-xs handwritten mt-2">Tap to flip ↻</div>
-                            </div>
-                            <div class="polaroid-back">
-                                <h4 class="marker-font text-xl text-blue-600 mb-2">Tristin Reeder</h4>
-                                <p class="handwritten text-lg text-gray-800 leading-tight text-left">
-                                   Tristin Reeder is a director and cinematographer specializing in visual storytelling. A senior Film student at Southern Connecticut State University, some projects he has worked on include Ascending Beyond Shadows, The Yearning of One and Paranormal Pursuits. He is currently expanding his expertise in lighting and composition as an aspiring Director of Photography.
-                                </p>
+                <div class="w-full lg:w-1/2">
+                    <!-- Adjusted grid for better balance -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-10 justify-items-center mb-10">
+                        
+                        <div class="polaroid-container rotate-minus-2 w-full max-w-[280px] animate-on-scroll anim-drop" style="transition-delay: 0.1s;" onclick="this.classList.toggle('flipped')">
+                            <div class="polaroid-inner">
+                                <div class="polaroid-front">
+                                    <img src="About-me.jpg" alt="Patrick Civitelli">
+                                    <div class="polaroid-caption text-xl leading-tight pb-2">Patrick Civitelli <br><span class="text-sm">Director, Co-DP, & Producer</span></div>
+                                    <div class="text-right text-gray-400 text-xs handwritten mt-2">Tap to flip ↻</div>
+                                </div>
+                                <div class="polaroid-back">
+                                    <h4 class="marker-font text-xl text-blue-600 mb-2">Patrick Civitelli</h4>
+                                    <p class="handwritten text-lg text-gray-800 leading-tight text-left">
+                                       Award-winning director and cinematographer Patrick Civitelli is best known for his documentaries Roma: WWF Superstar to Teacher, Ascending Beyond Shadows, and Paranormal Pursuits. Patrick is currently studying at Southern Connecticut State University, majoring in Communication and Film & Television with a minor in Journalism. He is a passionate storyteller and aspires to tell stories no one else will.
+                                    </p>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    
-                    <!-- Jason Forsyth (Film Strip) -->
-                    <div class="rotate-1 w-full max-w-[280px] animate-on-scroll anim-drop" style="transition-delay: 0.3s;">
-                        <div class="bg-[#222] p-2 rounded-sm shadow-xl relative overflow-hidden" style="border-left: 10px dashed #000; border-right: 10px dashed #000;">
-                            <div class="w-full h-[180px] bg-black flex items-center justify-center text-gray-400 font-sans italic border border-gray-700">Not Pictured</div>
+                        
+                        <div class="polaroid-container rotate-2 w-full max-w-[280px] sm:mt-8 animate-on-scroll anim-drop" style="transition-delay: 0.2s;" onclick="this.classList.toggle('flipped')">
+                            <div class="polaroid-inner">
+                                <div class="polaroid-front">
+                                    <img src="TR.PNG" alt="Tristin Reeder">
+                                    <div class="polaroid-caption text-xl leading-tight pb-2">Tristin Reeder <br><span class="text-sm">Co-Director of Photography</span></div>
+                                    <div class="text-right text-gray-400 text-xs handwritten mt-2">Tap to flip ↻</div>
+                                </div>
+                                <div class="polaroid-back">
+                                    <h4 class="marker-font text-xl text-blue-600 mb-2">Tristin Reeder</h4>
+                                    <p class="handwritten text-lg text-gray-800 leading-tight text-left">
+                                       Tristin Reeder is a director and cinematographer specializing in visual storytelling. A senior Film student at Southern Connecticut State University, some projects he has worked on include Ascending Beyond Shadows, The Yearning of One and Paranormal Pursuits. He is currently expanding his expertise in lighting and composition as an aspiring Director of Photography.
+                                    </p>
+                                </div>
+                            </div>
                         </div>
-                        <div class="bg-white px-4 pt-4 pb-6 mt-2 shadow-md transform -rotate-1 relative">
-                            <div class="tape" style="top: -15px; left: 50%; transform: translateX(-50%) rotate(2deg); width: 80px;"></div>
-                            <div class="text-center font-family: 'Caveat', cursive; text-2xl text-gray-800 handwritten">Jason Forsyth <br><span class="text-sm font-sans not-italic text-gray-500">Producer</span></div>
-                        </div>
+
                     </div>
 
-                    <!-- Cooper (Film Strip) -->
-                    <div class="rotate-minus-2 w-full max-w-[280px] sm:mt-8 animate-on-scroll anim-drop" style="transition-delay: 0.4s;">
-                        <div class="bg-[#222] p-2 rounded-sm shadow-xl relative overflow-hidden" style="border-left: 10px dashed #000; border-right: 10px dashed #000;">
-                            <div class="w-full h-[180px] bg-black flex items-center justify-center text-gray-400 font-sans italic border border-gray-700">Not Pictured</div>
+                    <!-- Film Strips centered underneath -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 justify-items-center">
+                        <!-- Jason Forsyth (Film Strip) -->
+                        <div class="rotate-1 w-full max-w-[220px] animate-on-scroll anim-drop" style="transition-delay: 0.3s;">
+                            <div class="bg-[#222] p-2 rounded-sm shadow-xl relative overflow-hidden" style="border-left: 10px dashed #000; border-right: 10px dashed #000;">
+                                <div class="w-full h-[150px] bg-black flex items-center justify-center text-gray-400 font-sans italic border border-gray-700">Not Pictured</div>
+                            </div>
+                            <div class="bg-white px-4 pt-4 pb-6 mt-2 shadow-md transform -rotate-1 relative">
+                                <div class="tape" style="top: -15px; left: 50%; transform: translateX(-50%) rotate(2deg); width: 60px;"></div>
+                                <div class="text-center font-family: 'Caveat', cursive; text-xl text-gray-800 handwritten leading-tight">Jason Forsyth <br><span class="text-xs font-sans not-italic text-gray-500">Producer</span></div>
+                            </div>
                         </div>
-                        <div class="bg-white px-4 pt-4 pb-6 mt-2 shadow-md transform rotate-1 relative">
-                            <div class="tape" style="top: -15px; left: 50%; transform: translateX(-50%) rotate(-3deg); width: 80px;"></div>
-                            <div class="text-center font-family: 'Caveat', cursive; text-2xl text-gray-800 handwritten">Cooper Chay-Dolan <br><span class="text-sm font-sans not-italic text-gray-500">Audio</span></div>
+
+                        <!-- Cooper (Film Strip) -->
+                        <div class="rotate-minus-2 w-full max-w-[220px] animate-on-scroll anim-drop" style="transition-delay: 0.4s;">
+                            <div class="bg-[#222] p-2 rounded-sm shadow-xl relative overflow-hidden" style="border-left: 10px dashed #000; border-right: 10px dashed #000;">
+                                <div class="w-full h-[150px] bg-black flex items-center justify-center text-gray-400 font-sans italic border border-gray-700">Not Pictured</div>
+                            </div>
+                            <div class="bg-white px-4 pt-4 pb-6 mt-2 shadow-md transform rotate-1 relative">
+                                <div class="tape" style="top: -15px; left: 50%; transform: translateX(-50%) rotate(-3deg); width: 60px;"></div>
+                                <div class="text-center font-family: 'Caveat', cursive; text-xl text-gray-800 handwritten leading-tight">Cooper Chay-Dolan <br><span class="text-xs font-sans not-italic text-gray-500">Audio</span></div>
+                            </div>
                         </div>
-                    </div>
-                    
-                    <!-- Derek (Film Strip) -->
-                    <div class="rotate-2 w-full max-w-[280px] sm:mt-4 animate-on-scroll anim-drop" style="transition-delay: 0.5s;">
-                        <div class="bg-[#222] p-2 rounded-sm shadow-xl relative overflow-hidden" style="border-left: 10px dashed #000; border-right: 10px dashed #000;">
-                            <div class="w-full h-[180px] bg-black flex items-center justify-center text-gray-400 font-sans italic border border-gray-700">Not Pictured</div>
+                        
+                        <!-- Derek (Film Strip) -->
+                        <div class="rotate-2 w-full max-w-[220px] animate-on-scroll anim-drop" style="transition-delay: 0.5s;">
+                            <div class="bg-[#222] p-2 rounded-sm shadow-xl relative overflow-hidden" style="border-left: 10px dashed #000; border-right: 10px dashed #000;">
+                                <div class="w-full h-[150px] bg-black flex items-center justify-center text-gray-400 font-sans italic border border-gray-700">Not Pictured</div>
+                            </div>
+                            <div class="bg-white px-4 pt-4 pb-6 mt-2 shadow-md transform -rotate-2 relative">
+                                <div class="tape" style="top: -15px; left: 50%; transform: translateX(-50%) rotate(1deg); width: 60px;"></div>
+                                <div class="text-center font-family: 'Caveat', cursive; text-xl text-gray-800 handwritten leading-tight">Derek Ehmke <br><span class="text-xs font-sans not-italic text-gray-500">Graphic Designer</span></div>
+                            </div>
                         </div>
-                        <div class="bg-white px-4 pt-4 pb-6 mt-2 shadow-md transform -rotate-2 relative">
-                            <div class="tape" style="top: -15px; left: 50%; transform: translateX(-50%) rotate(1deg); width: 80px;"></div>
-                            <div class="text-center font-family: 'Caveat', cursive; text-2xl text-gray-800 handwritten">Derek Ehmke <br><span class="text-sm font-sans not-italic text-gray-500">Graphic Designer</span></div>
-                        </div>
-                    </div>
-                    
-                    <!-- Ben (No Flip/Bio) -->
-                    <div class="polaroid-container rotate-minus-1 w-full max-w-[280px] sm:col-span-2 sm:mt-4 animate-on-scroll anim-drop" style="transition-delay: 0.6s;">
-                        <div class="polaroid-inner">
-                            <div class="polaroid-front">
-                                <img src="BC.png" alt="Ben Cicale">
-                                <div class="polaroid-caption text-xl leading-tight pb-2">Ben Cicale <br><span class="text-sm">Production Assistant</span></div>
+                        
+                        <!-- Ben (No Flip/Bio) -->
+                        <div class="polaroid-container rotate-minus-1 w-full max-w-[220px] sm:col-span-2 lg:col-span-3 sm:mt-4 animate-on-scroll anim-drop" style="transition-delay: 0.6s;">
+                            <div class="polaroid-inner">
+                                <div class="polaroid-front" style="padding: 10px 10px 15px 10px;">
+                                    <img src="BC.png" alt="Ben Cicale" style="height: 200px;">
+                                    <div class="polaroid-caption text-lg leading-tight pb-1">Ben Cicale <br><span class="text-xs">Production Assistant</span></div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -477,7 +486,6 @@
             </div>
         </section>
 
-        <!-- WATCH & SHARE WITH 4 VIDEOS -->
         <section id="media" class="px-4 mt-16">
             <div class="text-center mb-8">
                 <div class="tape inline-block relative" style="top: 10px; width: 100px;"></div>
@@ -485,7 +493,6 @@
             </div>
             
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <!-- Video 1: Darrell -->
                 <div class="bg-white p-4 pb-12 box-shadow rotate-minus-1 border border-gray-300 relative animate-on-scroll anim-drop" style="transition-delay: 0.1s;">
                     <div class="tape" style="top: -10px; right: -20px; left: auto; transform: rotate(45deg); width: 60px;"></div>
                     <div class="tape" style="top: -10px; left: -20px; transform: rotate(-45deg); width: 60px;"></div>
@@ -495,7 +502,6 @@
                     <p class="handwritten text-center text-2xl mt-4 text-gray-600">Darrell's Testimony</p>
                 </div>
                 
-                <!-- Video 2: Chris -->
                 <div class="bg-white p-4 pb-12 box-shadow rotate-1 border border-gray-300 relative mt-4 md:mt-0 animate-on-scroll anim-drop" style="transition-delay: 0.3s;">
                     <div class="tape" style="top: -10px; right: -20px; left: auto; transform: rotate(45deg); width: 60px;"></div>
                     <div class="tape" style="top: -10px; left: -20px; transform: rotate(-45deg); width: 60px;"></div>
@@ -505,7 +511,6 @@
                     <p class="handwritten text-center text-2xl mt-4 text-gray-600">Chris's Testimony</p>
                 </div>
 
-                <!-- Video 3: Jolie -->
                 <div class="bg-white p-4 pb-12 box-shadow rotate-2 border border-gray-300 relative mt-4 md:mt-0 animate-on-scroll anim-drop" style="transition-delay: 0.1s;">
                     <div class="tape" style="top: -10px; right: -20px; left: auto; transform: rotate(45deg); width: 60px;"></div>
                     <div class="tape" style="top: -10px; left: -20px; transform: rotate(-45deg); width: 60px;"></div>
@@ -515,7 +520,6 @@
                     <p class="handwritten text-center text-2xl mt-4 text-gray-600">Jolie's Testimony</p>
                 </div>
 
-                <!-- Video 4: Grayson -->
                 <div class="bg-white p-4 pb-12 box-shadow rotate-minus-2 border border-gray-300 relative mt-4 md:mt-0 animate-on-scroll anim-drop" style="transition-delay: 0.3s;">
                     <div class="tape" style="top: -10px; right: -20px; left: auto; transform: rotate(45deg); width: 60px;"></div>
                     <div class="tape" style="top: -10px; left: -20px; transform: rotate(-45deg); width: 60px;"></div>
